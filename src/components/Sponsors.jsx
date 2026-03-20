@@ -3,9 +3,6 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { useLanguage } from '../context/LanguageContext'
-import { client, urlFor } from '../lib/sanity'
-
-const SANITY_SPONSORS_QUERY = `*[_type == "sponsor"] | order(order asc) { name, logo, url, tier }`
 
 const staticSponsors = [
   { name: 'BİAS Mühendislik', logo: '/images/sponsor-bias.jpg', url: '#' },
@@ -19,17 +16,9 @@ export default function Sponsors() {
   const [sponsors, setSponsors] = useState(staticSponsors)
 
   useEffect(() => {
-    if (!process.env.NEXT_PUBLIC_SANITY_PROJECT_ID) return
-    client.fetch(SANITY_SPONSORS_QUERY)
-      .then((data) => {
-        if (data?.length) {
-          setSponsors(data.map((sp) => ({
-            name: sp.name,
-            logo: sp.logo ? urlFor(sp.logo).url() : null,
-            url: sp.url || '#',
-          })))
-        }
-      })
+    fetch('/api/sponsors')
+      .then((r) => r.json())
+      .then((data) => { if (data?.length) setSponsors(data) })
       .catch(() => {})
   }, [])
 

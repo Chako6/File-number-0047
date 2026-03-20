@@ -2,23 +2,11 @@
 
 import { useState, useEffect } from 'react'
 import { useLanguage } from '../../context/LanguageContext'
-import { client, urlFor } from '../../lib/sanity'
-
-const SANITY_SPONSORS_QUERY = `*[_type == "sponsor"] | order(order asc) { name, logo, url, tier }`
 
 const staticSponsors = [
   { name: 'BİAS Mühendislik', logo: '/images/sponsor-bias.jpg', url: '#' },
   { name: 'Hexagon Manufacturing Intelligence', logo: '/images/sponsor-hexagon.jpg', url: '#' },
 ]
-
-function normalizeSponsors(data) {
-  return data.map((s) => ({
-    name: s.name,
-    logo: s.logo ? urlFor(s.logo).url() : null,
-    url: s.url || '#',
-    tier: s.tier,
-  }))
-}
 
 const CheckIcon = () => (
   <svg className="w-5 h-5 text-gold flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -32,9 +20,9 @@ export default function SponsorsPage() {
   const [sponsors, setSponsors] = useState(staticSponsors)
 
   useEffect(() => {
-    if (!process.env.NEXT_PUBLIC_SANITY_PROJECT_ID) return
-    client.fetch(SANITY_SPONSORS_QUERY)
-      .then((data) => { if (data?.length) setSponsors(normalizeSponsors(data)) })
+    fetch('/api/sponsors')
+      .then((r) => r.json())
+      .then((data) => { if (data?.length) setSponsors(data) })
       .catch(() => {})
   }, [])
 
