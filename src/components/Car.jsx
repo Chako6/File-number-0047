@@ -1,24 +1,34 @@
-import { useRef, useEffect } from 'react';
-import { useLanguage } from '../context/LanguageContext';
+'use client'
+
+import { useRef, useEffect } from 'react'
+import { useLanguage } from '../context/LanguageContext'
 
 export default function Car({ fullPage = false }) {
   const { t } = useLanguage();
   const c = t.car;
   const videoRef = useRef(null);
+  const hasPlayedRef = useRef(false);
 
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
 
+    // Once the video finishes, mark it as done so the observer never replays it.
+    const onEnded = () => { hasPlayedRef.current = true; };
+    video.addEventListener('ended', onEnded);
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          // Section entered viewport — restart and play from the beginning.
-          video.currentTime = 0;
-          video.play().catch(() => {});
+          // Only play on the very first intersection — never restart after completion.
+          if (!hasPlayedRef.current) {
+            video.play().catch(() => {});
+          }
         } else {
-          // Section left viewport — pause so it holds the last frame quietly.
-          video.pause();
+          // Section left viewport — pause only if still playing (not on last frame).
+          if (!hasPlayedRef.current) {
+            video.pause();
+          }
         }
       },
       { threshold: 0.25 }
@@ -26,7 +36,10 @@ export default function Car({ fullPage = false }) {
 
     observer.observe(video.closest('section'));
 
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+      video.removeEventListener('ended', onEnded);
+    };
   }, []);
 
   return (

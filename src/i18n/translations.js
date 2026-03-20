@@ -162,6 +162,21 @@ export const translations = {
         },
       ],
       followTitle: 'Follow Us',
+      form: {
+        title: 'Send a Message',
+        name: 'Full Name',
+        email: 'Email Address',
+        message: 'Message',
+        typeLabel: 'Enquiry Type',
+        types: {
+          general: 'General',
+          sponsorship: 'Sponsorship',
+        },
+        submit: 'Send Message',
+        sending: 'Sending…',
+        success: 'Thank you! Your message has been sent.',
+        error: 'Something went wrong. Please try again or email us directly.',
+      },
     },
     newsPage: {
       eyebrow: 'Team Updates',
@@ -349,6 +364,21 @@ export const translations = {
         },
       ],
       followTitle: 'Bizi Takip Edin',
+      form: {
+        title: 'Mesaj Gönder',
+        name: 'Ad Soyad',
+        email: 'E-posta Adresi',
+        message: 'Mesaj',
+        typeLabel: 'Konu',
+        types: {
+          general: 'Genel',
+          sponsorship: 'Sponsorluk',
+        },
+        submit: 'Mesaj Gönder',
+        sending: 'Gönderiliyor…',
+        success: 'Teşekkürler! Mesajınız iletildi.',
+        error: 'Bir hata oluştu. Lütfen tekrar deneyin veya doğrudan e-posta gönderin.',
+      },
     },
     newsPage: {
       eyebrow: 'Ekip Güncellemeleri',

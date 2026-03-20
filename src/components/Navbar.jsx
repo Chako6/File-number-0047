@@ -1,47 +1,48 @@
-import { useState, useEffect } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { useLanguage } from '../context/LanguageContext';
-import logoSrc from '../assets/images/logo.jpg';
+'use client'
+
+import { useState, useEffect } from 'react'
+import Link from 'next/link'
+import { usePathname, useRouter } from 'next/navigation'
+import { useLanguage } from '../context/LanguageContext'
 
 export default function Navbar() {
-  const { lang, toggle, t } = useLanguage();
-  const [scrolled, setScrolled] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
-  const location = useLocation();
-  const navigate = useNavigate();
+  const { lang, toggle, t } = useLanguage()
+  const [scrolled, setScrolled] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
+  const pathname = usePathname()
+  const router = useRouter()
 
-  const isHome = location.pathname === '/';
+  const isHome = pathname === '/'
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 80);
-    window.addEventListener('scroll', onScroll, { passive: true });
-    setScrolled(window.scrollY > 80);
-    return () => window.removeEventListener('scroll', onScroll);
-  }, [location.pathname]);
+    const onScroll = () => setScrolled(window.scrollY > 80)
+    window.addEventListener('scroll', onScroll, { passive: true })
+    setScrolled(window.scrollY > 80)
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [pathname])
 
-  // Solid when: not on home page, OR scrolled past hero
-  const solid = !isHome || scrolled;
+  const solid = !isHome || scrolled
 
   const handleNavLink = (path) => (e) => {
-    setMenuOpen(false);
-    if (location.pathname === path) {
-      e.preventDefault();
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+    setMenuOpen(false)
+    if (pathname === path) {
+      e.preventDefault()
+      window.scrollTo({ top: 0, behavior: 'smooth' })
     }
-  };
+  }
 
   const scrollToSection = (id) => {
-    setMenuOpen(false);
-    if (location.pathname !== '/') {
-      navigate('/');
-      setTimeout(() => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' }), 300);
+    setMenuOpen(false)
+    if (pathname !== '/') {
+      router.push('/')
+      setTimeout(() => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' }), 300)
     } else {
-      document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+      document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
     }
-  };
+  }
 
   const linkClass =
-    'text-white/75 hover:text-gold transition-colors duration-200 text-xs font-semibold tracking-widest uppercase';
+    'text-white/75 hover:text-gold transition-colors duration-200 text-xs font-semibold tracking-widest uppercase'
 
   return (
     <nav
@@ -53,9 +54,9 @@ export default function Navbar() {
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-10 h-16 flex items-center justify-between">
         {/* Logo */}
-        <Link to="/" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="flex items-center gap-3.5 group">
+        <Link href="/" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="flex items-center gap-3.5 group">
           <img
-            src={logoSrc}
+            src="/images/logo.jpg"
             alt="BU Racing"
             className="h-10 w-10 object-cover rounded-sm ring-1 ring-white/10 group-hover:ring-gold/40 transition-all duration-300"
           />
@@ -67,14 +68,13 @@ export default function Navbar() {
 
         {/* Desktop nav */}
         <div className="hidden md:flex items-center gap-7">
-          <Link to="/" onClick={handleNavLink('/')} className={linkClass}>{t.nav.home}</Link>
-          <Link to="/team" onClick={handleNavLink('/team')} className={linkClass}>{t.nav.team}</Link>
-          <Link to="/car" onClick={handleNavLink('/car')} className={linkClass}>{t.nav.car}</Link>
-          <Link to="/news" onClick={handleNavLink('/news')} className={linkClass}>{t.nav.news}</Link>
-          <Link to="/sponsors" onClick={handleNavLink('/sponsors')} className={linkClass}>{t.nav.sponsors}</Link>
-          <Link to="/contact" onClick={handleNavLink('/contact')} className={linkClass}>{t.nav.contact}</Link>
+          <Link href="/" onClick={handleNavLink('/')} className={linkClass}>{t.nav.home}</Link>
+          <Link href="/team" onClick={handleNavLink('/team')} className={linkClass}>{t.nav.team}</Link>
+          <Link href="/car" onClick={handleNavLink('/car')} className={linkClass}>{t.nav.car}</Link>
+          <Link href="/news" onClick={handleNavLink('/news')} className={linkClass}>{t.nav.news}</Link>
+          <Link href="/sponsors" onClick={handleNavLink('/sponsors')} className={linkClass}>{t.nav.sponsors}</Link>
+          <Link href="/contact" onClick={handleNavLink('/contact')} className={linkClass}>{t.nav.contact}</Link>
 
-          {/* Language toggle */}
           <button
             onClick={toggle}
             className="flex items-center gap-1 text-xs font-bold tracking-widest border border-white/20 hover:border-gold/60 transition-all duration-200 px-3 py-1.5"
@@ -86,7 +86,7 @@ export default function Navbar() {
           </button>
 
           <Link
-            to="/contact"
+            href="/contact"
             onClick={handleNavLink('/contact')}
             className="px-5 py-2 border border-gold text-gold text-xs font-bold tracking-widest uppercase hover:bg-gold hover:text-navy transition-all duration-300"
           >
@@ -123,26 +123,26 @@ export default function Navbar() {
         }`}
       >
         <div className="px-6 py-6 flex flex-col gap-5">
-          <Link to="/" onClick={handleNavLink('/')} className={`${linkClass} text-left`}>
+          <Link href="/" onClick={handleNavLink('/')} className={`${linkClass} text-left`}>
             {t.nav.home}
           </Link>
-          <Link to="/team" onClick={handleNavLink('/team')} className={linkClass}>
+          <Link href="/team" onClick={handleNavLink('/team')} className={linkClass}>
             {t.nav.team}
           </Link>
-          <Link to="/car" onClick={handleNavLink('/car')} className={linkClass}>
+          <Link href="/car" onClick={handleNavLink('/car')} className={linkClass}>
             {t.nav.car}
           </Link>
-          <Link to="/news" onClick={handleNavLink('/news')} className={linkClass}>
+          <Link href="/news" onClick={handleNavLink('/news')} className={linkClass}>
             {t.nav.news}
           </Link>
-          <Link to="/sponsors" onClick={handleNavLink('/sponsors')} className={linkClass}>
+          <Link href="/sponsors" onClick={handleNavLink('/sponsors')} className={linkClass}>
             {t.nav.sponsors}
           </Link>
-          <Link to="/contact" onClick={handleNavLink('/contact')} className={linkClass}>
+          <Link href="/contact" onClick={handleNavLink('/contact')} className={linkClass}>
             {t.nav.contact}
           </Link>
           <Link
-            to="/contact"
+            href="/contact"
             onClick={handleNavLink('/contact')}
             className="mt-2 px-5 py-3 border border-gold text-gold text-xs font-bold tracking-widest uppercase text-center hover:bg-gold hover:text-navy transition-all duration-300"
           >
@@ -151,5 +151,5 @@ export default function Navbar() {
         </div>
       </div>
     </nav>
-  );
+  )
 }

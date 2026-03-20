@@ -1,4 +1,6 @@
-import { useLanguage } from '../context/LanguageContext';
+'use client'
+
+import { useLanguage } from '../context/LanguageContext'
 
 export default function University() {
   const { t } = useLanguage();

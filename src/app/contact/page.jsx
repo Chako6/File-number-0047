@@ -1,4 +1,7 @@
-import { useLanguage } from '../context/LanguageContext';
+'use client'
+
+import { useState } from 'react'
+import { useLanguage } from '../../context/LanguageContext'
 
 const cardIcons = {
   email: (
@@ -17,7 +20,7 @@ const cardIcons = {
       <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
     </svg>
   ),
-};
+}
 
 const socialLinks = [
   {
@@ -47,11 +50,34 @@ const socialLinks = [
       </svg>
     ),
   },
-];
+]
 
 export default function Contact() {
-  const { t } = useLanguage();
-  const p = t.contactPage;
+  const { t } = useLanguage()
+  const p = t.contactPage
+  const f = p.form
+  const [formState, setFormState] = useState({ name: '', email: '', message: '', type: 'general' })
+  const [status, setStatus] = useState('idle') // idle | sending | success | error
+
+  async function handleSubmit(e) {
+    e.preventDefault()
+    setStatus('sending')
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formState),
+      })
+      if (res.ok) {
+        setStatus('success')
+        setFormState({ name: '', email: '', message: '', type: 'general' })
+      } else {
+        setStatus('error')
+      }
+    } catch {
+      setStatus('error')
+    }
+  }
 
   return (
     <div className="pt-16">
@@ -71,21 +97,12 @@ export default function Contact() {
               key={card.id}
               className="border border-gray-100 hover:border-gold/40 p-8 md:p-10 transition-all duration-300 hover:shadow-[0_4px_24px_rgba(201,168,76,0.08)] flex flex-col"
             >
-              {/* Icon */}
               <div className="text-gold mb-6">{cardIcons[card.icon]}</div>
-
-              {/* Title */}
               <h2 className="text-navy text-base font-bold tracking-wider uppercase mb-4">
                 {card.title}
               </h2>
-
-              {/* Divider */}
               <div className="w-8 h-px bg-gold mb-5" />
-
-              {/* Body */}
               <p className="text-gray-600 text-sm leading-relaxed mb-8 flex-1">{card.body}</p>
-
-              {/* CTA */}
               <a
                 href={card.href}
                 target={card.href.startsWith('http') ? '_blank' : undefined}
@@ -99,8 +116,90 @@ export default function Contact() {
         </div>
       </div>
 
+      {/* Contact form */}
+      <div className="py-24 md:py-32 px-6 bg-gray-50 border-t border-gray-100">
+        <div className="max-w-2xl mx-auto">
+          <div className="mb-10">
+            <h2 className="text-navy text-2xl md:text-3xl font-bold mb-4">{f.title}</h2>
+            <div className="w-8 h-px bg-gold" />
+          </div>
+
+          {status === 'success' ? (
+            <p className="text-navy font-semibold py-8 text-center">{f.success}</p>
+          ) : (
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div>
+                  <label className="block text-navy text-[11px] font-bold tracking-widest uppercase mb-2">{f.name}</label>
+                  <input
+                    type="text"
+                    required
+                    value={formState.name}
+                    onChange={(e) => setFormState((s) => ({ ...s, name: e.target.value }))}
+                    className="w-full border border-gray-200 focus:border-navy px-4 py-3 text-sm text-navy outline-none transition-colors"
+                  />
+                </div>
+                <div>
+                  <label className="block text-navy text-[11px] font-bold tracking-widest uppercase mb-2">{f.email}</label>
+                  <input
+                    type="email"
+                    required
+                    value={formState.email}
+                    onChange={(e) => setFormState((s) => ({ ...s, email: e.target.value }))}
+                    className="w-full border border-gray-200 focus:border-navy px-4 py-3 text-sm text-navy outline-none transition-colors"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-navy text-[11px] font-bold tracking-widest uppercase mb-2">{f.typeLabel}</label>
+                <div className="flex gap-0">
+                  {Object.entries(f.types).map(([key, label]) => (
+                    <button
+                      key={key}
+                      type="button"
+                      onClick={() => setFormState((s) => ({ ...s, type: key }))}
+                      className={`px-6 py-2.5 text-xs font-bold tracking-widest uppercase border transition-colors duration-200 ${
+                        formState.type === key
+                          ? 'bg-navy text-white border-navy'
+                          : 'border-navy/20 text-navy/55 hover:border-navy/50 hover:text-navy'
+                      }`}
+                    >
+                      {label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-navy text-[11px] font-bold tracking-widest uppercase mb-2">{f.message}</label>
+                <textarea
+                  required
+                  rows={5}
+                  value={formState.message}
+                  onChange={(e) => setFormState((s) => ({ ...s, message: e.target.value }))}
+                  className="w-full border border-gray-200 focus:border-navy px-4 py-3 text-sm text-navy outline-none transition-colors resize-none"
+                />
+              </div>
+
+              {status === 'error' && (
+                <p className="text-red-600 text-sm">{f.error}</p>
+              )}
+
+              <button
+                type="submit"
+                disabled={status === 'sending'}
+                className="px-8 py-3 bg-navy text-white text-xs font-bold tracking-widest uppercase hover:bg-navy/80 transition-colors duration-300 disabled:opacity-60"
+              >
+                {status === 'sending' ? f.sending : f.submit}
+              </button>
+            </form>
+          )}
+        </div>
+      </div>
+
       {/* Follow us */}
-      <div className="py-16 px-6 bg-gray-50 border-t border-gray-100 text-center">
+      <div className="py-16 px-6 bg-white border-t border-gray-100 text-center">
         <p className="text-navy text-xs font-bold tracking-widest uppercase mb-6">{p.followTitle}</p>
         <div className="flex justify-center gap-4">
           {socialLinks.map((s) => (
@@ -118,5 +217,5 @@ export default function Contact() {
         </div>
       </div>
     </div>
-  );
+  )
 }

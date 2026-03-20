@@ -1,6 +1,3 @@
-import heroBg from '../assets/images/hero.jpg';
-import teamBg from '../assets/images/team.jpg';
-
 export const NEWS_CATEGORIES = ['sponsor', 'team', 'development', 'event'];
 
 export const newsPosts = [
@@ -12,7 +9,7 @@ export const newsPosts = [
     description:
       'All sub-teams gathered for a full-day session on campus — technical reviews, cross-department alignment, and hands-on manufacturing work marked the start of our intensive build phase.',
     date: '2026-03-01',
-    image: teamBg,
+    image: '/images/team.jpg',
     body: [
       'On the 1st of March 2026, Boğaziçi Racing held its first full-team workshop day of the year, bringing together all sub-teams under one roof for a structured day of collaborative engineering work.',
       'The session opened with a joint technical review led by the chief engineer, covering progress across mechanical, electrical, aerodynamics, and software departments. Key milestones were assessed against the project timeline, and outstanding design tasks were reprioritised ahead of the manufacturing phase.',
@@ -29,7 +26,7 @@ export const newsPosts = [
     description:
       'Our aero sub-team completed the first round of CFD simulations for the front wing assembly, confirming positive downforce targets and setting the direction for the next design iteration.',
     date: '2026-02-28',
-    image: heroBg,
+    image: '/images/hero.jpg',
     body: [
       'The aerodynamics sub-team has completed the first round of computational fluid dynamics (CFD) simulations for the front wing assembly, marking a significant step forward in the vehicle\'s development programme.',
       'Using ANSYS Fluent on a meshed geometry derived from the latest CAD revision, the team ran steady-state RANS simulations across a speed range of 40–120 km/h. Results confirmed a positive downforce coefficient that meets the preliminary targets set during concept review, with drag figures within acceptable bounds for an entry-level Formula Student configuration.',

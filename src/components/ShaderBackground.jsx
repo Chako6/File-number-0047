@@ -1,4 +1,6 @@
-import { useRef, useEffect } from 'react';
+'use client'
+
+import { useRef, useEffect } from 'react'
 
 // ─── Shaders ────────────────────────────────────────────────────────────────
 

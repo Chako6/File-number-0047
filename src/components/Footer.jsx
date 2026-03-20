@@ -1,6 +1,8 @@
-import { Link, useLocation } from 'react-router-dom';
-import { useLanguage } from '../context/LanguageContext';
-import logoSrc from '../assets/images/logo.jpg';
+'use client'
+
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+import { useLanguage } from '../context/LanguageContext'
 
 const socialLinks = [
   {
@@ -30,20 +32,20 @@ const socialLinks = [
       </svg>
     ),
   },
-];
+]
 
 export default function Footer() {
-  const { t } = useLanguage();
-  const f = t.footer;
-  const nav = t.nav;
-  const location = useLocation();
+  const { t } = useLanguage()
+  const f = t.footer
+  const nav = t.nav
+  const pathname = usePathname()
 
   const handleHomeClick = (e) => {
-    if (location.pathname === '/') {
-      e.preventDefault();
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (pathname === '/') {
+      e.preventDefault()
+      window.scrollTo({ top: 0, behavior: 'smooth' })
     }
-  };
+  }
 
   return (
     <footer className="bg-navy-dark text-white">
@@ -51,8 +53,8 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-14">
           {/* Brand */}
           <div>
-            <Link to="/" className="flex items-center gap-3 mb-6">
-              <img src={logoSrc} alt="BU Racing" className="h-12 w-12 object-cover" />
+            <Link href="/" className="flex items-center gap-3 mb-6">
+              <img src="/images/logo.jpg" alt="BU Racing" className="h-12 w-12 object-cover" />
               <div>
                 <p className="text-white font-bold text-sm tracking-wide">Boğaziçi Racing</p>
                 <p className="text-white/55 text-xs tracking-wide">Formula Student Team</p>
@@ -90,7 +92,7 @@ export default function Footer() {
               ].map((link) => (
                 <li key={link.to}>
                   <Link
-                    to={link.to}
+                    href={link.to}
                     onClick={link.onClick}
                     className="text-white/55 hover:text-gold transition-colors duration-200 text-sm flex items-center gap-2 group"
                   >
@@ -119,5 +121,5 @@ export default function Footer() {
         </div>
       </div>
     </footer>
-  );
+  )
 }

@@ -1,15 +1,15 @@
-import { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+'use client'
+
+import { useEffect } from 'react'
+import { usePathname } from 'next/navigation'
 
 export default function ScrollToTop() {
-  const { pathname } = useLocation();
+  const pathname = usePathname()
   useEffect(() => {
-    // Disable browser's automatic scroll restoration so it doesn't
-    // fight our explicit scroll-to-top on route changes.
     if ('scrollRestoration' in window.history) {
-      window.history.scrollRestoration = 'manual';
+      window.history.scrollRestoration = 'manual'
     }
-    window.scrollTo({ top: 0, behavior: 'instant' });
-  }, [pathname]);
-  return null;
+    window.scrollTo({ top: 0, behavior: 'instant' })
+  }, [pathname])
+  return null
 }

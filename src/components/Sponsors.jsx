@@ -1,22 +1,41 @@
-import { Link } from 'react-router-dom';
-import { useLanguage } from '../context/LanguageContext';
-import biasSrc from '../assets/images/sponsor-bias.jpg';
-import hexagonSrc from '../assets/images/sponsor-hexagon.jpg';
+'use client'
 
-const sponsors = [
-  { name: 'BİAS Mühendislik',                   logo: biasSrc,    url: '#' },
-  { name: 'Hexagon Manufacturing Intelligence', logo: hexagonSrc, url: '#' },
-];
+import { useState, useEffect } from 'react'
+import Link from 'next/link'
+import { useLanguage } from '../context/LanguageContext'
+import { client, urlFor } from '../lib/sanity'
+
+const SANITY_SPONSORS_QUERY = `*[_type == "sponsor"] | order(order asc) { name, logo, url, tier }`
+
+const staticSponsors = [
+  { name: 'BİAS Mühendislik', logo: '/images/sponsor-bias.jpg', url: '#' },
+  { name: 'Hexagon Manufacturing Intelligence', logo: '/images/sponsor-hexagon.jpg', url: '#' },
+]
 
 // Teaser version — used on the Home page
 export default function Sponsors() {
-  const { t } = useLanguage();
-  const s = t.sponsors;
+  const { t } = useLanguage()
+  const s = t.sponsors
+  const [sponsors, setSponsors] = useState(staticSponsors)
+
+  useEffect(() => {
+    if (!process.env.NEXT_PUBLIC_SANITY_PROJECT_ID) return
+    client.fetch(SANITY_SPONSORS_QUERY)
+      .then((data) => {
+        if (data?.length) {
+          setSponsors(data.map((sp) => ({
+            name: sp.name,
+            logo: sp.logo ? urlFor(sp.logo).url() : null,
+            url: sp.url || '#',
+          })))
+        }
+      })
+      .catch(() => {})
+  }, [])
 
   return (
     <section id="sponsors" className="py-32 md:py-40 px-6 bg-gray-50">
       <div className="max-w-4xl mx-auto">
-        {/* Header */}
         <div className="flex items-center gap-4 mb-10">
           <span className="font-mono text-[9px] text-navy/30 tracking-widest uppercase">TECHNICAL PROGRAMME</span>
           <div className="flex-1 h-px bg-navy/10" />
@@ -31,7 +50,6 @@ export default function Sponsors() {
           </p>
         </div>
 
-        {/* Sponsor grid */}
         <div className="flex flex-wrap justify-center items-start gap-10 md:gap-14 mb-16">
           {sponsors.map((sponsor) => (
             <a
@@ -41,20 +59,18 @@ export default function Sponsors() {
               rel="noopener noreferrer"
               className="flex flex-col items-center gap-3 hover:scale-[1.03] transition-transform duration-300"
             >
-              {/* Fixed-size logo chip */}
               <div className="bg-white ring-1 ring-gray-200 rounded-sm w-48 h-24 flex items-center justify-center px-5">
                 <img
                   src={sponsor.logo}
                   alt={sponsor.name}
                   className="w-full h-full object-contain"
                   onError={(e) => {
-                    e.currentTarget.style.display = 'none';
-                    e.currentTarget.nextSibling.style.display = 'block';
+                    e.currentTarget.style.display = 'none'
+                    e.currentTarget.nextSibling.style.display = 'block'
                   }}
                 />
                 <span className="hidden text-navy font-bold text-sm text-center">{sponsor.name}</span>
               </div>
-              {/* Sponsor name */}
               <span className="text-gray-500 text-[11px] font-medium tracking-wider text-center w-48 leading-snug uppercase mt-1">
                 {sponsor.name}
               </span>
@@ -62,16 +78,15 @@ export default function Sponsors() {
           ))}
         </div>
 
-        {/* CTAs */}
         <div className="flex flex-col sm:flex-row justify-center gap-4">
           <Link
-            to="/sponsors"
+            href="/sponsors"
             className="inline-block px-8 py-3 border border-gold/40 text-gold text-xs font-bold tracking-widest uppercase hover:bg-gold hover:text-navy transition-all duration-300"
           >
             {s.viewAll}
           </Link>
           <Link
-            to="/sponsors"
+            href="/sponsors"
             className="inline-block px-8 py-3 bg-gold text-navy text-xs font-bold tracking-widest uppercase hover:bg-gold-light transition-all duration-300"
           >
             {s.cta}
@@ -79,5 +94,5 @@ export default function Sponsors() {
         </div>
       </div>
     </section>
-  );
+  )
 }

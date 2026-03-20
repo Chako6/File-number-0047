@@ -1,4 +1,6 @@
-import { createContext, useContext, useState } from 'react';
+'use client'
+
+import { createContext, useContext, useState } from 'react'
 import { translations } from '../i18n/translations';
 
 const LanguageContext = createContext(null);

@@ -1,21 +1,42 @@
-import { useLanguage } from '../context/LanguageContext';
-import biasSrc from '../assets/images/sponsor-bias.jpg';
-import hexagonSrc from '../assets/images/sponsor-hexagon.jpg';
+'use client'
 
-const sponsors = [
-  { name: 'BİAS Mühendislik', logo: biasSrc, url: '#' },
-  { name: 'Hexagon Manufacturing Intelligence', logo: hexagonSrc, url: '#' },
-];
+import { useState, useEffect } from 'react'
+import { useLanguage } from '../../context/LanguageContext'
+import { client, urlFor } from '../../lib/sanity'
+
+const SANITY_SPONSORS_QUERY = `*[_type == "sponsor"] | order(order asc) { name, logo, url, tier }`
+
+const staticSponsors = [
+  { name: 'BİAS Mühendislik', logo: '/images/sponsor-bias.jpg', url: '#' },
+  { name: 'Hexagon Manufacturing Intelligence', logo: '/images/sponsor-hexagon.jpg', url: '#' },
+]
+
+function normalizeSponsors(data) {
+  return data.map((s) => ({
+    name: s.name,
+    logo: s.logo ? urlFor(s.logo).url() : null,
+    url: s.url || '#',
+    tier: s.tier,
+  }))
+}
 
 const CheckIcon = () => (
   <svg className="w-5 h-5 text-gold flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
     <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
   </svg>
-);
+)
 
 export default function SponsorsPage() {
-  const { t } = useLanguage();
-  const p = t.sponsorsPage;
+  const { t } = useLanguage()
+  const p = t.sponsorsPage
+  const [sponsors, setSponsors] = useState(staticSponsors)
+
+  useEffect(() => {
+    if (!process.env.NEXT_PUBLIC_SANITY_PROJECT_ID) return
+    client.fetch(SANITY_SPONSORS_QUERY)
+      .then((data) => { if (data?.length) setSponsors(normalizeSponsors(data)) })
+      .catch(() => {})
+  }, [])
 
   return (
     <div className="pt-16">
@@ -29,7 +50,7 @@ export default function SponsorsPage() {
         </p>
       </div>
 
-      {/* CTA buttons — Oxford-style row */}
+      {/* CTA buttons */}
       <div className="bg-navy-dark border-t border-white/10 py-10 px-6">
         <div className="max-w-3xl mx-auto flex flex-col sm:flex-row justify-center items-center gap-4">
           <a
@@ -78,7 +99,6 @@ export default function SponsorsPage() {
           <div className="w-10 h-px bg-gold mx-auto mb-6" />
           <p className="text-white/65 text-base mb-16">{p.partnersIntro}</p>
 
-          {/* Logo grid — fixed-size chips, original colors always */}
           <div className="flex flex-wrap justify-center items-start gap-10 md:gap-14">
             {sponsors.map((sponsor) => (
               <a
@@ -88,15 +108,14 @@ export default function SponsorsPage() {
                 rel="noopener noreferrer"
                 className="flex flex-col items-center gap-3 hover:scale-[1.03] transition-transform duration-300"
               >
-                {/* Fixed-size logo chip — same dimensions for all sponsors */}
                 <div className="bg-white rounded-sm w-52 h-28 flex items-center justify-center px-6">
                   <img
                     src={sponsor.logo}
                     alt={sponsor.name}
                     className="w-full h-full object-contain"
                     onError={(e) => {
-                      e.currentTarget.style.display = 'none';
-                      e.currentTarget.nextSibling.style.display = 'block';
+                      e.currentTarget.style.display = 'none'
+                      e.currentTarget.nextSibling.style.display = 'block'
                     }}
                   />
                   <span className="hidden text-navy font-bold text-sm text-center">{sponsor.name}</span>
@@ -107,9 +126,8 @@ export default function SponsorsPage() {
               </a>
             ))}
           </div>
-
         </div>
       </div>
     </div>
-  );
+  )
 }
