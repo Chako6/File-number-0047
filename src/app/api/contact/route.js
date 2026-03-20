@@ -11,7 +11,7 @@ export async function POST(req) {
     const resend = new Resend(process.env.RESEND_API_KEY)
     await resend.emails.send({
       from: 'Boğaziçi Racing <onboarding@resend.dev>',
-      to: 'contact@buracing.com',
+      to: 'buracing3@gmail.com',
       subject: `[${type || 'General'}] New enquiry from ${name}`,
       html: `
         <p><b>From:</b> ${name} (${email})</p>
