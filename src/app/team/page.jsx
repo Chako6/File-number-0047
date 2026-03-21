@@ -212,7 +212,7 @@ function LeadershipCard({ member }) {
   const initials = getInitials(member.name)
 
   return (
-    <div className="group relative overflow-hidden aspect-[2/3]">
+    <div className="group relative overflow-hidden aspect-[3/4]">
       {member.photo ? (
         <img
           src={typeof member.photo === 'object' ? member.photo.src : member.photo}
@@ -435,10 +435,12 @@ export default function Team() {
                     </h3>
                     <div className="flex-1 h-px bg-navy/10" />
                   </div>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-3xl">
+                  <div className="grid grid-cols-2 lg:grid-cols-3 gap-5">
                     {leaders.map((m, i) => (
                       <RevealOnScroll key={m.name} delay={i * 80}>
-                        <LeadershipCard member={m} />
+                        <div className="max-w-[250px] mx-auto w-full">
+                          <LeadershipCard member={m} />
+                        </div>
                       </RevealOnScroll>
                     ))}
                   </div>
