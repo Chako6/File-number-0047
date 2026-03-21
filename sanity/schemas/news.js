@@ -7,7 +7,22 @@ export default {
       name: 'slug',
       title: 'Slug',
       type: 'slug',
-      options: { source: 'title_en' },
+      options: {
+        source: 'title_en',
+        slugify: (input) =>
+          input
+            .toLowerCase()
+            .replace(/[şŞ]/g, 's')
+            .replace(/[ğĞ]/g, 'g')
+            .replace(/[ıİ]/g, 'i')
+            .replace(/[öÖ]/g, 'o')
+            .replace(/[üÜ]/g, 'u')
+            .replace(/[çÇ]/g, 'c')
+            .replace(/[^a-z0-9\s-]/g, '')
+            .trim()
+            .replace(/\s+/g, '-')
+            .replace(/-+/g, '-'),
+      },
       validation: (R) => R.required(),
     },
     {

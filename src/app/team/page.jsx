@@ -37,8 +37,11 @@ const DEPT_BLOCKS = [
   {
     key: 'mechanical_design',
     iconKey: 'cog',
-    image: '/images/hero.jpg',
     title: { en: 'Mechanical Design', tr: 'Mekanik Tasarım' },
+    description: {
+      en: 'Our mechanical team transforms concepts into reality, engineering the physical systems that give the car its performance edge.',
+      tr: 'Mekanik ekibimiz konseptleri gerçeğe dönüştürür; aracın performans avantajını sağlayan fiziksel sistemleri tasarlar.',
+    },
     areas: {
       en: [
         'Designs chassis and structural parts',
@@ -61,8 +64,11 @@ const DEPT_BLOCKS = [
   {
     key: 'electric_software',
     iconKey: 'bolt',
-    image: '/images/team.jpg',
     title: { en: 'Software & Control Systems', tr: 'Yazılım ve Kontrol Sistemleri' },
+    description: {
+      en: 'Our software team builds the electronic brain of the car — from power management to real-time telemetry and vehicle control.',
+      tr: 'Yazılım ekibimiz aracın elektronik beynini oluşturur: güç yönetiminden gerçek zamanlı telemetri ve araç kontrolüne kadar.',
+    },
     areas: {
       en: [
         'Architects power distribution systems',
@@ -91,8 +97,11 @@ const DEPT_BLOCKS = [
   {
     key: 'team_ops',
     iconKey: 'chart',
-    image: '/images/Team%20Foto%20Bogazici%20Racing.png',
     title: { en: 'Team Operations', tr: 'Operasyon Yönetimi' },
+    description: {
+      en: 'The backbone of the organization — keeping every aspect of the team running efficiently from budget management to public relations.',
+      tr: 'Organizasyonun omurgası — bütçe yönetiminden halkla ilişkilere kadar ekibin her yönünün verimli çalışmasını sağlar.',
+    },
     areas: {
       en: [
         'Manages sponsorships and partnerships',
@@ -354,43 +363,27 @@ export default function Team() {
             <div className="w-10 h-px bg-gold mx-auto" />
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
             {DEPT_BLOCKS.map((dept, i) => (
               <RevealOnScroll key={dept.key} delay={i * 120}>
-                <div className="relative overflow-hidden flex flex-col justify-end min-h-[520px]">
-                  {/* Background image */}
-                  <img
-                    src={dept.image}
-                    alt=""
-                    aria-hidden="true"
-                    className="absolute inset-0 w-full h-full object-cover object-center"
-                  />
-                  {/* Dark gradient overlay */}
-                  <div
-                    className="absolute inset-0"
-                    style={{ background: 'linear-gradient(to bottom, rgba(10,20,35,0.25) 0%, rgba(10,20,35,0.6) 35%, rgba(10,20,35,0.95) 100%)' }}
-                  />
-                  {/* Gold top accent line */}
-                  <div className="absolute top-0 left-0 right-0 h-px bg-gold/60" />
-
-                  {/* Content */}
-                  <div className="relative z-10 p-7">
-                    <div className="flex items-center gap-3 mb-4">
-                      <span className="text-gold">{deptIcons[dept.iconKey]}</span>
-                      <h3 className="text-white text-base font-bold leading-snug tracking-wide">
-                        {dept.title[lang] ?? dept.title.en}
-                      </h3>
-                    </div>
-                    <div className="w-8 h-px bg-gold/50 mb-5" />
-                    <ul className="space-y-2">
-                      {(dept.areas[lang] ?? dept.areas.en).map((area) => (
-                        <li key={area} className="flex items-start gap-2.5">
-                          <span className="w-1 h-1 bg-gold rounded-full flex-shrink-0 mt-[7px]" aria-hidden="true" />
-                          <span className="text-white/80 text-[13px] leading-snug">{area}</span>
-                        </li>
-                      ))}
-                    </ul>
+                <div className="border-t border-gold/30 pt-8">
+                  <div className="flex items-start gap-3 mb-5">
+                    <span className="text-gold flex-shrink-0 mt-0.5">{deptIcons[dept.iconKey]}</span>
+                    <h3 className="text-white text-base font-bold leading-snug">
+                      {dept.title[lang] ?? dept.title.en}
+                    </h3>
                   </div>
+                  <p className="text-white/65 text-sm leading-relaxed mb-6">
+                    {dept.description[lang] ?? dept.description.en}
+                  </p>
+                  <ul className="space-y-2.5">
+                    {(dept.areas[lang] ?? dept.areas.en).map((area) => (
+                      <li key={area} className="flex items-center gap-3">
+                        <span className="w-1.5 h-1.5 bg-gold/60 rotate-45 flex-shrink-0" aria-hidden="true" />
+                        <span className="text-white/55 text-xs leading-snug">{area}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               </RevealOnScroll>
             ))}
