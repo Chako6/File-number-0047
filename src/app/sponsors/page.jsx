@@ -42,7 +42,7 @@ export default function SponsorsPage() {
       <div className="bg-navy-dark border-t border-white/10 py-10 px-6">
         <div className="max-w-3xl mx-auto flex flex-col sm:flex-row justify-center items-center gap-4">
           <a
-            href="mailto:sponsor@buracing.com"
+            href="mailto:info.buracing@gmail.com"
             className="w-full sm:w-auto px-8 py-3 bg-gold text-navy text-xs font-bold tracking-widest uppercase hover:bg-gold-light transition-all duration-300 text-center"
           >
             {p.ctas.become}
@@ -54,7 +54,7 @@ export default function SponsorsPage() {
             {p.ctas.download}
           </a>
           <a
-            href="mailto:contact@buracing.com"
+            href="mailto:info.buracing@gmail.com"
             className="w-full sm:w-auto px-8 py-3 border border-white/30 text-white text-xs font-bold tracking-widest uppercase hover:border-gold hover:text-gold transition-all duration-300 text-center"
           >
             {p.ctas.email}

@@ -142,7 +142,7 @@ export const translations = {
           title: 'General Enquiries',
           body: 'Have a question about Boğaziçi Racing, our work, or Formula Student? We are happy to answer.',
           cta: 'Send an Email',
-          href: 'mailto:contact@buracing.com',
+          href: 'mailto:info.buracing@gmail.com',
         },
         {
           id: 'join',
@@ -150,7 +150,7 @@ export const translations = {
           title: 'Join the Team',
           body: 'We welcome students from all engineering disciplines at Boğaziçi University. Applications are open throughout the academic year.',
           cta: 'Apply Now',
-          href: 'mailto:contact@buracing.com',
+          href: 'mailto:info.buracing@gmail.com',
         },
         {
           id: 'location',
@@ -344,7 +344,7 @@ export const translations = {
           title: 'Genel Sorular',
           body: "Boğaziçi Racing, çalışmalarımız veya Formula Student hakkında sorunuz mu var? Yanıtlamaktan memnuniyet duyarız.",
           cta: 'E-posta Gönder',
-          href: 'mailto:contact@buracing.com',
+          href: 'mailto:info.buracing@gmail.com',
         },
         {
           id: 'join',
@@ -352,7 +352,7 @@ export const translations = {
           title: 'Takıma Katıl',
           body: "Boğaziçi Üniversitesi'ndeki tüm mühendislik bölümü öğrencilerini kabul ediyoruz. Başvurular akademik yıl boyunca açıktır.",
           cta: 'Başvur',
-          href: 'mailto:contact@buracing.com',
+          href: 'mailto:info.buracing@gmail.com',
         },
         {
           id: 'location',
