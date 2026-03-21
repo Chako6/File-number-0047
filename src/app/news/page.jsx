@@ -3,10 +3,9 @@
 import { useState, useEffect, useMemo } from 'react'
 import { useLanguage } from '../../context/LanguageContext'
 import NewsCard from '../../components/NewsCard'
-import { newsPosts, NEWS_CATEGORIES } from '../../data/news'
+import { NEWS_CATEGORIES } from '../../data/news'
 
 function normalizePost(post, lang) {
-  if (post.title) return post // already static format
   return {
     id: post.slug,
     slug: post.slug,
@@ -19,28 +18,41 @@ function normalizePost(post, lang) {
   }
 }
 
-const staticSorted = [...newsPosts].sort((a, b) => new Date(b.date) - new Date(a.date))
+function SkeletonCard() {
+  return (
+    <div className="animate-pulse">
+      <div className="bg-gray-200 w-full mb-4" style={{ aspectRatio: '16/10' }} />
+      <div className="space-y-2">
+        <div className="bg-gray-200 h-3 w-1/4 rounded" />
+        <div className="bg-gray-200 h-5 w-5/6 rounded" />
+        <div className="bg-gray-200 h-3 w-full rounded" />
+        <div className="bg-gray-200 h-3 w-4/5 rounded" />
+      </div>
+    </div>
+  )
+}
 
 export default function News() {
   const { t, lang } = useLanguage()
   const n = t.newsPage
-  const [rawSanity, setRawSanity] = useState(null)
+  const [rawPosts, setRawPosts] = useState(null) // null = loading
   const [activeCategory, setActiveCategory] = useState('all')
 
   useEffect(() => {
     fetch('/api/news')
       .then((r) => r.json())
-      .then((data) => { if (data?.length) setRawSanity(data) })
-      .catch(() => {})
+      .then((data) => setRawPosts(Array.isArray(data) ? data : []))
+      .catch(() => setRawPosts([]))
   }, [])
 
   const allPosts = useMemo(() => {
-    if (!rawSanity) return staticSorted
-    return rawSanity.map((p) => normalizePost(p, lang))
-  }, [rawSanity, lang])
+    if (rawPosts === null) return null
+    return rawPosts.map((p) => normalizePost(p, lang))
+  }, [rawPosts, lang])
 
-  const filteredPosts =
-    activeCategory === 'all'
+  const filteredPosts = allPosts === null
+    ? null
+    : activeCategory === 'all'
       ? allPosts
       : allPosts.filter((p) => p.category === activeCategory)
 
@@ -75,16 +87,21 @@ export default function News() {
             ))}
           </div>
 
-          <p className="text-navy/35 text-xs tracking-wider text-center mb-8">
-            {filteredPosts.length} {filteredPosts.length === 1 ? n.post : n.posts}
-          </p>
-
-          {filteredPosts.length > 0 ? (
+          {filteredPosts === null ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filteredPosts.map((post) => (
-                <NewsCard key={post.id} post={post} href={`/news/${post.slug}`} />
-              ))}
+              {Array.from({ length: 6 }).map((_, i) => <SkeletonCard key={i} />)}
             </div>
+          ) : filteredPosts.length > 0 ? (
+            <>
+              <p className="text-navy/35 text-xs tracking-wider text-center mb-8">
+                {filteredPosts.length} {filteredPosts.length === 1 ? n.post : n.posts}
+              </p>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {filteredPosts.map((post) => (
+                  <NewsCard key={post.id} post={post} href={`/news/${post.slug}`} />
+                ))}
+              </div>
+            </>
           ) : (
             <p className="text-center text-navy/40 text-sm py-20">{n.noItems}</p>
           )}

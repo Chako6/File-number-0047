@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { useParams, useRouter } from 'next/navigation'
 import { useLanguage } from '../../../context/LanguageContext'
-import { newsPosts } from '../../../data/news'
 
 const formatDate = (dateStr, lang) => {
   const d = new Date(dateStr + 'T00:00:00')
@@ -13,10 +12,9 @@ const formatDate = (dateStr, lang) => {
   })
 }
 
-// Extract plain text from Sanity block content
 function extractBlocks(blocks) {
   if (!blocks) return []
-  if (typeof blocks[0] === 'string') return blocks // static format
+  if (typeof blocks[0] === 'string') return blocks
   return blocks
     .map((b) => b.children?.map((c) => c.text).join('') || '')
     .filter(Boolean)
@@ -39,44 +37,52 @@ export default function NewsDetail() {
   const router = useRouter()
   const { lang, t } = useLanguage()
 
-  const staticPost = newsPosts.find((p) => p.slug === slug)
-  const [post, setPost] = useState(staticPost || null)
-  const [loading, setLoading] = useState(!staticPost)
+  const [post, setPost] = useState(null)
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => { window.scrollTo(0, 0) }, [])
 
   useEffect(() => {
+    setLoading(true)
     fetch(`/api/news/${encodeURIComponent(slug)}`)
       .then((r) => r.json())
       .then((data) => {
         if (data) {
-          setPost({
-            slug: data.slug,
-            category: data.category,
-            date: data.date,
-            image: data.image || null,
-            title: data[`title_${lang}`] || data.title_en || '',
-            description: data[`description_${lang}`] || data.description_en || '',
-            body: extractBlocks(data[`body_${lang}`] || data.body_en),
-          })
-        } else if (!staticPost) {
+          setPost(data)
+        } else {
           router.replace('/news')
         }
         setLoading(false)
       })
-      .catch(() => setLoading(false))
-  }, [slug, lang, staticPost, router])
+      .catch(() => { router.replace('/news') })
+  }, [slug, router])
 
-  if (loading) return null
+  // Full-height skeleton — keeps viewport filled so scroll position stays at 0
+  if (loading) {
+    return (
+      <div className="pt-16 min-h-screen bg-navy animate-pulse">
+        <div className="py-16 md:py-20 px-6">
+          <div className="max-w-3xl mx-auto">
+            <div className="h-3 w-16 bg-white/10 rounded mb-10" />
+            <div className="h-3 w-24 bg-white/10 rounded mb-5" />
+            <div className="w-8 h-px bg-gold/30 mb-8" />
+            <div className="h-8 w-4/5 bg-white/10 rounded mb-3" />
+            <div className="h-8 w-2/3 bg-white/10 rounded mb-6" />
+            <div className="h-4 w-full bg-white/10 rounded mb-2" />
+            <div className="h-4 w-5/6 bg-white/10 rounded" />
+          </div>
+        </div>
+      </div>
+    )
+  }
+
   if (!post) return null
 
   const categoryLabel = t.newsPage.categories[post.category]
-  const postTitle = post.title_en ? (post[`title_${lang}`] || post.title_en) : post.title
-  const postDesc  = post.description_en ? (post[`description_${lang}`] || post.description_en) : post.description
-  const postBody  = post.body_en ? extractBlocks(post[`body_${lang}`] || post.body_en) : (post.body || [])
-  const postImage = post.image && typeof post.image === 'object' && !post.image._type
-    ? (post.image.src || post.image)
-    : post.image
+  const postTitle = post[`title_${lang}`] || post.title_en || ''
+  const postDesc  = post[`description_${lang}`] || post.description_en || ''
+  const postBody  = extractBlocks(post[`body_${lang}`] || post.body_en)
+  const postImage = post.image || null
 
   return (
     <div className="pt-16 bg-white min-h-screen">
