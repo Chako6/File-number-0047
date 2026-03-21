@@ -427,7 +427,8 @@ export default function Team() {
                   </div>
                 </div>
               )
-            })}</>)
+            })}
+          </>
           ) : (
             <div className="py-20 flex flex-col items-center text-center">
               <span className="font-mono text-[9px] text-navy/25 tracking-widest uppercase mb-6">
