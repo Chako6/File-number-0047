@@ -5,13 +5,6 @@ import Link from 'next/link'
 import { useParams, useRouter } from 'next/navigation'
 import { useLanguage } from '../../../context/LanguageContext'
 import { newsPosts } from '../../../data/news'
-import { client, urlFor } from '../../../lib/sanity'
-
-const SANITY_QUERY = `*[_type == "news" && slug.current == $slug][0] {
-  "slug": slug.current, category, date, image,
-  title_en, title_tr, description_en, description_tr,
-  body_en, body_tr
-}`
 
 const formatDate = (dateStr, lang) => {
   const d = new Date(dateStr + 'T00:00:00')
@@ -51,28 +44,25 @@ export default function NewsDetail() {
   const [loading, setLoading] = useState(!staticPost)
 
   useEffect(() => {
-    if (process.env.NEXT_PUBLIC_SANITY_PROJECT_ID) {
-      client.fetch(SANITY_QUERY, { slug })
-        .then((data) => {
-          if (data) {
-            setPost({
-              slug: data.slug,
-              category: data.category,
-              date: data.date,
-              image: data.image ? urlFor(data.image).url() : null,
-              title: data[`title_${lang}`] || data.title_en || '',
-              description: data[`description_${lang}`] || data.description_en || '',
-              body: extractBlocks(data[`body_${lang}`] || data.body_en),
-            })
-          } else if (!staticPost) {
-            router.replace('/news')
-          }
-          setLoading(false)
-        })
-        .catch(() => setLoading(false))
-    } else if (!staticPost) {
-      router.replace('/news')
-    }
+    fetch(`/api/news/${encodeURIComponent(slug)}`)
+      .then((r) => r.json())
+      .then((data) => {
+        if (data) {
+          setPost({
+            slug: data.slug,
+            category: data.category,
+            date: data.date,
+            image: data.image || null,
+            title: data[`title_${lang}`] || data.title_en || '',
+            description: data[`description_${lang}`] || data.description_en || '',
+            body: extractBlocks(data[`body_${lang}`] || data.body_en),
+          })
+        } else if (!staticPost) {
+          router.replace('/news')
+        }
+        setLoading(false)
+      })
+      .catch(() => setLoading(false))
   }, [slug, lang, staticPost, router])
 
   if (loading) return null

@@ -4,12 +4,6 @@ import { useState, useEffect, useMemo } from 'react'
 import { useLanguage } from '../../context/LanguageContext'
 import NewsCard from '../../components/NewsCard'
 import { newsPosts, NEWS_CATEGORIES } from '../../data/news'
-import { client, urlFor } from '../../lib/sanity'
-
-const SANITY_QUERY = `*[_type == "news"] | order(date desc) {
-  "slug": slug.current, category, date, image,
-  title_en, title_tr, description_en, description_tr
-}`
 
 function normalizePost(post, lang) {
   if (post.title) return post // already static format
@@ -18,7 +12,7 @@ function normalizePost(post, lang) {
     slug: post.slug,
     category: post.category,
     date: post.date,
-    image: post.image ? urlFor(post.image).url() : null,
+    image: post.image || null,
     title: post[`title_${lang}`] || post.title_en || '',
     description: post[`description_${lang}`] || post.description_en || '',
     body: [],
@@ -34,8 +28,8 @@ export default function News() {
   const [activeCategory, setActiveCategory] = useState('all')
 
   useEffect(() => {
-    if (!process.env.NEXT_PUBLIC_SANITY_PROJECT_ID) return
-    client.fetch(SANITY_QUERY)
+    fetch('/api/news')
+      .then((r) => r.json())
       .then((data) => { if (data?.length) setRawSanity(data) })
       .catch(() => {})
   }, [])

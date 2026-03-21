@@ -8,9 +8,12 @@ export async function GET() {
     return Response.json([])
   }
 
+  const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID
+  const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET || 'production'
+
   const client = createClient({
-    projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
-    dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || 'production',
+    projectId,
+    dataset,
     useCdn: false,
     apiVersion: '2025-03-21',
     perspective: 'published',
@@ -20,15 +23,22 @@ export async function GET() {
 
   try {
     const data = await client.fetch(
-      `*[_type == "sponsor"] | order(order asc) { name, logo, url, tier }`,
+      `*[_type == "news"] | order(date desc) {
+        "slug": slug.current, category, date, image,
+        title_en, title_tr, description_en, description_tr
+      }`,
       {},
       { cache: 'no-store' }
     )
-    const normalized = data.map((s) => ({
-      name: s.name,
-      logo: s.logo ? builder.image(s.logo).url() : null,
-      url: s.url || '#',
-      tier: s.tier,
+    const normalized = data.map((p) => ({
+      slug: p.slug,
+      category: p.category,
+      date: p.date,
+      image: p.image ? builder.image(p.image).url() : null,
+      title_en: p.title_en || '',
+      title_tr: p.title_tr || p.title_en || '',
+      description_en: p.description_en || '',
+      description_tr: p.description_tr || p.description_en || '',
     }))
     return new Response(JSON.stringify(normalized), {
       headers: {
@@ -37,7 +47,7 @@ export async function GET() {
       },
     })
   } catch (err) {
-    console.error('Sanity sponsors fetch failed:', err)
+    console.error('Sanity news fetch failed:', err)
     return Response.json([])
   }
 }
