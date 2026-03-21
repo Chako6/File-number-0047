@@ -67,11 +67,13 @@ export const DEPT_ORDER = [
 // Department heading labels, keyed by language code.
 export const DEPT_LABELS = {
   en: {
+    leadership:        'Leadership',
     mechanical_design: 'Mechanical Design',
     electric_software: 'Electric & Software',
     team_ops:          'Team Operations',
   },
   tr: {
+    leadership:        'Liderlik',
     mechanical_design: 'Mekanik Tasarım',
     electric_software: 'Elektrik ve Yazılım',
     team_ops:          'Takım Operasyonları',

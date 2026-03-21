@@ -17,6 +17,7 @@ export default {
       type: 'string',
       options: {
         list: [
+          { title: 'Leadership', value: 'leadership' },
           { title: 'Mechanical Design', value: 'mechanical_design' },
           { title: 'Electric & Software', value: 'electric_software' },
           { title: 'Team Operations', value: 'team_ops' },
