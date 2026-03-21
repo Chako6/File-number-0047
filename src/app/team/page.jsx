@@ -208,54 +208,6 @@ function MemberCard({ member }) {
   )
 }
 
-function LeadershipCard({ member }) {
-  const initials = getInitials(member.name)
-
-  return (
-    <div className="group relative overflow-hidden aspect-[2/3]">
-      {member.photo ? (
-        <img
-          src={typeof member.photo === 'object' ? member.photo.src : member.photo}
-          alt={member.name}
-          className="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.04]"
-        />
-      ) : (
-        <div className="absolute inset-0 bg-navy-light flex items-center justify-center">
-          <span className="text-white/10 text-5xl font-bold tracking-widest select-none">
-            {initials}
-          </span>
-        </div>
-      )}
-
-      <div className="absolute inset-0 bg-gradient-to-t from-navy/90 via-navy/40 to-transparent
-                      opacity-0 group-hover:opacity-100
-                      [@media(hover:none)]:opacity-100
-                      transition-opacity duration-300" />
-
-      <div className="absolute bottom-0 left-0 right-0 px-5 pb-5
-                      flex items-end justify-between
-                      opacity-0 translate-y-1.5
-                      group-hover:opacity-100 group-hover:translate-y-0
-                      [@media(hover:none)]:opacity-100 [@media(hover:none)]:translate-y-0
-                      transition-[opacity,transform] duration-300">
-        <div className="flex-1 min-w-0 pr-3">
-          <p className="text-white text-base font-bold leading-snug">{member.name}</p>
-          <p className="text-gold text-xs leading-snug mt-1 font-medium">{member.role}</p>
-        </div>
-        <a
-          href={member.linkedin || 'https://linkedin.com'}
-          target="_blank"
-          rel="noopener noreferrer"
-          onClick={(e) => e.stopPropagation()}
-          className="flex-shrink-0 text-white hover:text-gold transition-colors duration-200"
-          aria-label={`${member.name} on LinkedIn`}
-        >
-          <LinkedInIcon />
-        </a>
-      </div>
-    </div>
-  )
-}
 
 export default function Team() {
   const { t, lang } = useLanguage()
@@ -435,10 +387,10 @@ export default function Team() {
                     </h3>
                     <div className="flex-1 h-px bg-navy/10" />
                   </div>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-3xl">
+                  <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5">
                     {leaders.map((m, i) => (
                       <RevealOnScroll key={m.name} delay={i * 80}>
-                        <LeadershipCard member={m} />
+                        <MemberCard member={m} />
                       </RevealOnScroll>
                     ))}
                   </div>
