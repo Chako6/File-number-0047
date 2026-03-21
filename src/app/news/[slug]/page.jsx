@@ -43,6 +43,8 @@ export default function NewsDetail() {
   const [post, setPost] = useState(staticPost || null)
   const [loading, setLoading] = useState(!staticPost)
 
+  useEffect(() => { window.scrollTo(0, 0) }, [])
+
   useEffect(() => {
     fetch(`/api/news/${encodeURIComponent(slug)}`)
       .then((r) => r.json())
