@@ -1,17 +1,50 @@
 'use client'
 
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { useLanguage } from '../context/LanguageContext'
 import NewsCard from './NewsCard'
-import { newsPosts } from '../data/news'
 
-const latestPosts = [...newsPosts]
-  .sort((a, b) => new Date(b.date) - new Date(a.date))
-  .slice(0, 3)
+function SkeletonCard() {
+  return (
+    <div className="animate-pulse border border-white/10 bg-white/5">
+      <div className="h-48 bg-white/10" />
+      <div className="p-6 space-y-3">
+        <div className="h-2.5 w-1/4 bg-white/10 rounded" />
+        <div className="h-4 w-5/6 bg-white/10 rounded" />
+        <div className="h-3 w-full bg-white/10 rounded" />
+        <div className="h-3 w-4/5 bg-white/10 rounded" />
+      </div>
+    </div>
+  )
+}
 
 export default function LatestNews() {
-  const { t } = useLanguage()
+  const { t, lang } = useLanguage()
   const n = t.latestNews
+  const [posts, setPosts] = useState(null)
+
+  useEffect(() => {
+    fetch('/api/news')
+      .then((r) => r.json())
+      .then((data) => {
+        if (!Array.isArray(data)) { setPosts([]); return }
+        const latest = [...data]
+          .sort((a, b) => new Date(b.date) - new Date(a.date))
+          .slice(0, 3)
+          .map((p) => ({
+            id: p.slug,
+            slug: p.slug,
+            category: p.category,
+            date: p.date,
+            image: p.image || null,
+            title: p[`title_${lang}`] || p.title_en || '',
+            description: p[`description_${lang}`] || p.description_en || '',
+          }))
+        setPosts(latest)
+      })
+      .catch(() => setPosts([]))
+  }, [lang])
 
   return (
     <section className="py-24 md:py-32 px-6 bg-navy">
@@ -35,9 +68,12 @@ export default function LatestNews() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {latestPosts.map((post) => (
-            <NewsCard key={post.id} post={post} href={`/news/${post.slug}`} />
-          ))}
+          {posts === null
+            ? Array.from({ length: 3 }).map((_, i) => <SkeletonCard key={i} />)
+            : posts.map((post) => (
+                <NewsCard key={post.id} post={post} href={`/news/${post.slug}`} />
+              ))
+          }
         </div>
       </div>
     </section>
