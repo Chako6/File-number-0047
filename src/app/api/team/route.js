@@ -11,23 +11,28 @@ export async function GET(req) {
   const { searchParams } = new URL(req.url)
   const season = searchParams.get('season') || ''
 
+  const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID
+  const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET || 'production'
+
   const client = createClient({
-    projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
-    dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || 'production',
+    projectId,
+    dataset,
     useCdn: false,
-    apiVersion: '2024-01-01',
+    apiVersion: '2025-03-21',
+    perspective: 'published',
   })
 
   const builder = createImageUrlBuilder(client)
 
-  console.log('[api/team] projectId:', process.env.NEXT_PUBLIC_SANITY_PROJECT_ID, 'season:', season)
+  console.log('[api/team] projectId:', projectId, 'dataset:', dataset, 'season:', season)
 
   try {
     const data = await client.fetch(
       `*[_type == "teamMember" && season == $season] | order(order asc) {
         name, role_en, role_tr, dept, photo, linkedin
       }`,
-      { season }
+      { season },
+      { cache: 'no-store' }
     )
     console.log('[api/team] raw Sanity response:', JSON.stringify(data))
     const normalized = data.map((m) => ({
