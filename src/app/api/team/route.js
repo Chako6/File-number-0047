@@ -20,6 +20,8 @@ export async function GET(req) {
 
   const builder = createImageUrlBuilder(client)
 
+  console.log('[api/team] projectId:', process.env.NEXT_PUBLIC_SANITY_PROJECT_ID, 'season:', season)
+
   try {
     const data = await client.fetch(
       `*[_type == "teamMember" && season == $season] | order(order asc) {
@@ -27,6 +29,7 @@ export async function GET(req) {
       }`,
       { season }
     )
+    console.log('[api/team] raw Sanity response:', JSON.stringify(data))
     const normalized = data.map((m) => ({
       name: m.name,
       role_en: m.role_en || '',
