@@ -35,7 +35,12 @@ export async function GET(req) {
       photo: m.photo ? builder.image(m.photo).url() : null,
       linkedin: m.linkedin || null,
     }))
-    return Response.json(normalized)
+    return new Response(JSON.stringify(normalized), {
+      headers: {
+        'Content-Type': 'application/json',
+        'Cache-Control': 'no-store, no-cache, must-revalidate',
+      },
+    })
   } catch (err) {
     console.error('Sanity team fetch failed:', err)
     return Response.json([])
