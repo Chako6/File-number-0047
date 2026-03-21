@@ -11,11 +11,6 @@ import {
   DEPT_ORDER,
   DEPT_LABELS,
 } from '../../data/team'
-import { client, urlFor } from '../../lib/sanity'
-
-const SANITY_TEAM_QUERY = `*[_type == "teamMember" && season == $season] | order(order asc) {
-  name, role_en, role_tr, dept, photo, linkedin
-}`
 
 // ── Department icons ─────────────────────────────────────────────────────────
 const deptIcons = {
@@ -178,8 +173,8 @@ export default function Team() {
   const [rawSanityBySeason, setRawSanityBySeason] = useState({})
 
   useEffect(() => {
-    if (!process.env.NEXT_PUBLIC_SANITY_PROJECT_ID) return
-    client.fetch(SANITY_TEAM_QUERY, { season: selectedSeason })
+    fetch(`/api/team?season=${encodeURIComponent(selectedSeason)}`)
+      .then((r) => r.json())
       .then((data) => {
         if (data?.length) {
           setRawSanityBySeason((prev) => ({ ...prev, [selectedSeason]: data }))
@@ -195,7 +190,7 @@ export default function Team() {
         name: m.name,
         role: m[`role_${lang}`] || m.role_en || '',
         dept: m.dept,
-        photo: m.photo ? urlFor(m.photo).url() : null,
+        photo: m.photo || null,
         linkedin: m.linkedin || null,
       }))
     }
