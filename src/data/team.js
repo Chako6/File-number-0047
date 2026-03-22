@@ -73,9 +73,9 @@ export const DEPT_LABELS = {
     team_ops:          'Team Operations',
   },
   tr: {
-    leadership:        'Liderlik',
-    mechanical_design: 'Mekanik Tasarım',
-    electric_software: 'Elektrik ve Yazılım',
+    leadership:        'LİDERLİK',
+    mechanical_design: 'MEKANİK TASARIM',
+    electric_software: 'ELEKTRİK VE YAZILIM',
     team_ops:          'Takım Operasyonları',
   },
 };

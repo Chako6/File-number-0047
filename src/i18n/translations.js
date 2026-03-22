@@ -214,26 +214,26 @@ export const translations = {
     nav: {
       home: 'Ana Sayfa',
       about: 'Hakkımızda',
-      team: 'Ekip',
+      team: 'EKİP',
       car: 'Araç',
       news: 'Haberler',
       sponsors: 'Sponsorlar',
-      contact: 'İletişim',
+      contact: 'İLETİŞİM',
       joinUs: 'Katıl',
     },
     hero: {
       eyebrow: 'Formula Student Takımı',
-      line1: 'Boğaziçi',
+      line1: 'BOĞAZİÇİ',
       line2: 'Racing',
       cta1: 'Takıma Katıl',
       cta2: 'Aracı Keşfet',
     },
     about: {
-      eyebrow: 'Biz Kimiz',
+      eyebrow: 'BİZ KİMİZ',
       title: 'Boğaziçi Racing Hakkında',
       stats: [
-        { value: '6', label: 'Mühendislik Disiplini' },
-        { value: '2', label: 'Hedef Etkinlik' },
+        { value: '6', label: 'MÜHENDİSLİK DİSİPLİNİ' },
+        { value: '2', label: 'HEDEF ETKİNLİK' },
         { value: '2025', label: 'Kuruluş Yılı' },
       ],
       highlight:
@@ -260,24 +260,24 @@ export const translations = {
           body: 'Teknik süreçlerimizi açık kaynak olarak paylaşarak mühendislik eğitimine katkı sağlıyor ve yeni nesle ilham veriyoruz.',
         },
       ],
-      cta: 'Ekiple Tanış',
+      cta: 'EKİPLE TANIŞ',
     },
     university: {
-      eyebrow: 'Evimiz',
+      eyebrow: 'EVİMİZ',
       title: 'Boğaziçi Üniversitesi',
       p1: "1863 yılında Boğaz kıyısında kurulan Boğaziçi Üniversitesi, Türkiye'nin en prestijli akademik kurumu ve mühendislik mükemmeliyetinin merkezidir. Güçlü müfredatı, dünya standartlarındaki akademisyenleri ve entelektüel merak kültürü, ekibimizin inşa edildiği temeli oluşturmaktadır.",
       p2: "Boğaziçi Racing, üniversitenin mirasını mühendislik yarışmasına taşıyor; akademik bilgiyi gerçek, yüksek performanslı bir makineye dönüştürüyor ve Türkiye'nin en iyi mühendislik yeteneklerini dünya sahnesinde temsil ediyor.",
       cta: "Boğaziçi'nde Mühendislik",
     },
     car: {
-      eyebrow: 'Makine',
+      eyebrow: 'MAKİNE',
       title: 'Aracımız',
-      badge: 'Geliştirme Aşamasında',
+      badge: 'GELİŞTİRME AŞAMASINDA',
       body: 'İlk formula tipi yarış aracımız şu anda geliştirme aşamasındadır. Tamamen Boğaziçi Racing öğrencileri tarafından tasarlanan ve mühendislenen araç, ekibimizin uygulamalı öğrenme ve rekabetçi performansa olan bağlılığını yansıtmaktadır.',
-      cta: 'Gelişimi Takip Et',
+      cta: 'GELİŞİMİ TAKİP ET',
     },
     carStory: {
-      eyebrow: 'Aracımızın Hikayesi',
+      eyebrow: 'ARACIMIZIN HİKAYESİ',
       paragraphs: [
         'Aracımız, dünya genelinde üniversite öğrencileri için en prestijli mühendislik yarışmalarından biri olan Formula Student organizasyonu için geliştirilmektedir.',
         'Tamamen Boğaziçi Üniversitesi öğrencileri tarafından tasarlanan ve üretilen bu proje, teorik bilgiyi uygulamalı mühendislik deneyimiyle birleştirmektedir.',
@@ -286,7 +286,7 @@ export const translations = {
       ],
     },
     sponsors: {
-      eyebrow: 'Ortak ve Destekçiler',
+      eyebrow: 'ORTAK VE DESTEKÇİLER',
       title: 'Sponsorlarımız',
       body: "Ortaklarımız, Formula Student'ın en üst düzeyinde rekabet etmemizi mümkün kılan uzmanlık, araç ve kaynakları sağlamaktadır.",
       cta: 'Sponsor Ol',
@@ -306,7 +306,7 @@ export const translations = {
       rights: 'Boğaziçi Üniversitesi Formula Student Takımı',
     },
     teamPage: {
-      eyebrow: 'Ekip',
+      eyebrow: 'EKİP',
       title: 'Ekibimizle Tanışın',
       intro:
         "Ekibimiz, Boğaziçi Üniversitesi'nin farklı mühendislik bölümlerinden gelen öğrencileri bir araya getiriyor — ortak tutkuları: motorsporlar, inovasyon ve uygulamalı mühendislik.",
@@ -316,7 +316,7 @@ export const translations = {
         { name: 'Elektrik ve Yazılım', icon: 'bolt' },
         { name: 'Takım Operasyonları', icon: 'chart' },
       ],
-      membersTitle: 'Ekip Üyeleri',
+      membersTitle: 'EKİP ÜYELERİ',
       rosterTitle: 'Sezon Kadrosu',
       rosterCount: 'Üye',
       rosterEmpty: 'Bu sezon kadrosu yakında eklenecek.',
@@ -335,7 +335,7 @@ export const translations = {
         "Boğaziçi Racing, mühendislik, inovasyon ve motorsporlara olan tutkumuzu paylaşan ortaklar arıyor. Desteğiniz, uluslararası Formula Student sahnesinde tasarlamamızı, üretmemizi ve yarışmamızı mümkün kılıyor.",
       ctas: {
         become: 'Sponsor Ol',
-        download: 'Sponsorluk Paketini İndir',
+        download: 'SPONSORLUK PAKETİNİ İNDİR',
         email: 'E-posta Gönder',
       },
       whyTitle: 'Neden Boğaziçi Racing ile Ortak Olmalısınız?',
@@ -351,7 +351,7 @@ export const translations = {
       noPartners: 'İlk büyük sponsorumuz olmak ister misiniz?',
     },
     contactPage: {
-      eyebrow: 'İletişim',
+      eyebrow: 'İLETİŞİM',
       title: 'Bize Ulaşın',
       intro:
         'Bizimle iletişime geçmekten mutluluk duyarız. Takıma katılmak, sponsor olmak ya da Boğaziçi Racing hakkında daha fazla bilgi almak ister misiniz?',
@@ -377,7 +377,7 @@ export const translations = {
           icon: 'location',
           title: 'Konum',
           body: 'Boğaziçi Üniversitesi Güney Kampüsü, Bebek Rumelilisarı Caddesi, Sarıyer, İstanbul 34470, Türkiye.',
-          cta: 'Haritada Aç',
+          cta: 'HARİTADA AÇ',
           href: 'https://maps.google.com/?q=Bogazici+University+South+Campus+Sariyer+Istanbul',
         },
       ],
@@ -399,16 +399,16 @@ export const translations = {
       },
     },
     newsPage: {
-      eyebrow: 'Ekip Güncellemeleri',
+      eyebrow: 'EKİP GÜNCELLEMELERİ',
       title: 'Haberler',
       intro:
         "Boğaziçi Racing'den en güncel haberler — mühendislik ilerlemesi, ekip etkinlikleri, sponsorluk duyuruları ve yaklaşan etkinlikler.",
       all: 'Tümü',
       categories: {
         sponsor: 'Sponsor Duyuruları',
-        team: 'Ekip Etkinlikleri',
-        development: 'Geliştirme Güncellemeleri',
-        event: 'Etkinlikler',
+        team: 'EKİP ETKİNLİKLERİ',
+        development: 'GELİŞTİRME GÜNCELLEMELERİ',
+        event: 'ETKİNLİKLER',
       },
       post: 'gönderi',
       posts: 'gönderi',
@@ -417,7 +417,7 @@ export const translations = {
     latestNews: {
       eyebrow: 'Güncel',
       title: 'Son Haberler',
-      viewAll: 'Tüm Haberleri Gör',
+      viewAll: 'TÜM HABERLERİ GÖR',
     },
   },
 };
