@@ -47,7 +47,7 @@ export default function Car({ fullPage = false }) {
       {/* Background video — plays once, holds last frame */}
       <video
         ref={videoRef}
-        className="absolute inset-0 w-full h-full object-contain md:object-cover"
+        className="absolute inset-0 w-full h-full object-contain scale-125 md:scale-100 md:object-cover"
         muted
         playsInline
       >
