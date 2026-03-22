@@ -54,7 +54,7 @@ export default function Car({ fullPage = false }) {
             <source src={VIDEO_SRC} type="video/mp4" />
           </video>
           <div className="absolute inset-0 bg-navy/60" />
-          <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6">
+          <div className="absolute inset-0 flex flex-col items-center justify-start pt-8 text-center px-6">
             <p className="text-gold text-xs font-bold tracking-widest2 uppercase mb-4">{c.eyebrow}</p>
             <h2 className="text-white text-3xl font-bold leading-tight">{c.title}</h2>
           </div>

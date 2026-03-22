@@ -63,15 +63,13 @@ export const translations = {
       title: 'Our Car',
       badge: 'Under Development',
       body: "Our first formula-style race car is currently in development. Designed and engineered entirely by Boğaziçi Racing students, it represents the team's commitment to hands-on learning and competitive performance.",
-      cta: 'Follow Our Progress',
+      cta: 'Follow on Instagram',
     },
     carStory: {
       eyebrow: 'The Story Behind Our Car',
       paragraphs: [
-        'Our car is being developed for the Formula Student competition, one of the most prestigious engineering challenges for university students worldwide.',
-        'Designed and built entirely by Boğaziçi University students, this project combines theoretical knowledge with hands-on engineering experience.',
-        'From concept design to manufacturing and testing, every stage is carried out by a multidisciplinary team working with precision, creativity, and passion.',
-        'We aim not only to compete, but to innovate, learn, and represent our university at an international level.',
+        'Our car is being developed for the Formula Student competition, one of the most prestigious engineering challenges for university students worldwide. Designed and built entirely by Boğaziçi University students, this project combines theoretical knowledge with hands-on engineering experience.',
+        'From concept design to manufacturing and testing, every stage is carried out by a multidisciplinary team working with precision, creativity, and passion. We aim not only to compete, but to innovate, learn, and represent our university at an international level.',
       ],
     },
     sponsors: {
@@ -274,15 +272,13 @@ export const translations = {
       title: 'Aracımız',
       badge: 'GELİŞTİRME AŞAMASINDA',
       body: 'İlk formula tipi yarış aracımız şu anda geliştirme aşamasındadır. Tamamen Boğaziçi Racing öğrencileri tarafından tasarlanan ve mühendislenen araç, ekibimizin uygulamalı öğrenme ve rekabetçi performansa olan bağlılığını yansıtmaktadır.',
-      cta: 'GELİŞİMİ TAKİP ET',
+      cta: "Instagram'da Takip Et",
     },
     carStory: {
       eyebrow: 'ARACIMIZIN HİKAYESİ',
       paragraphs: [
-        'Aracımız, dünya genelinde üniversite öğrencileri için en prestijli mühendislik yarışmalarından biri olan Formula Student organizasyonu için geliştirilmektedir.',
-        'Tamamen Boğaziçi Üniversitesi öğrencileri tarafından tasarlanan ve üretilen bu proje, teorik bilgiyi uygulamalı mühendislik deneyimiyle birleştirmektedir.',
-        'Konsept tasarımdan üretime ve testlere kadar her aşama, hassasiyet, yaratıcılık ve tutkuyla çalışan multidisipliner bir ekip tarafından yürütülmektedir.',
-        'Amacımız yalnızca yarışmak değil; aynı zamanda yenilik yapmak, öğrenmek ve üniversitemizi uluslararası düzeyde temsil etmektir.',
+        "Aracımız, dünya genelinde üniversite öğrencileri için en prestijli mühendislik yarışmalarından biri olan Formula Student organizasyonu için geliştirilmektedir. Tamamen Boğaziçi Üniversitesi öğrencileri tarafından tasarlanan ve üretilen bu proje, teorik bilgiyi uygulamalı mühendislik deneyimiyle birleştirmektedir.",
+        "Konsept tasarımdan üretime ve testlere kadar her aşama, hassasiyet, yaratıcılık ve tutkuyla çalışan multidisipliner bir ekip tarafından yürütülmektedir. Amacımız yalnızca yarışmak değil; aynı zamanda yenilik yapmak, öğrenmek ve üniversitemizi uluslararası düzeyde temsil etmektir.",
       ],
     },
     sponsors: {
