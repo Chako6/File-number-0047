@@ -19,11 +19,11 @@ export default function Hero() {
             {h.eyebrow}
           </p>
 
-          <h1 className="text-white text-5xl md:text-7xl lg:text-8xl font-bold tracking-wide uppercase leading-none">
-            {h.line1}
+          <h1 className="text-white text-5xl md:text-7xl lg:text-8xl font-bold tracking-wide leading-none">
+            BOĞAZİÇİ
           </h1>
-          <h1 className="text-gold text-5xl md:text-7xl lg:text-8xl font-bold tracking-wide uppercase leading-none mb-10">
-            {h.line2}
+          <h1 className="text-gold text-5xl md:text-7xl lg:text-8xl font-bold tracking-wide leading-none mb-10" style={{ textTransform: 'none' }}>
+            RACING
           </h1>
 
           {/* Desktop only — divider + buttons stay inside the hero */}
