@@ -10,7 +10,7 @@ export default function Hero() {
 
   return (
     <>
-      <section className="relative h-[100svh] w-full overflow-hidden bg-navy-dark">
+      <section className="relative h-screen w-full overflow-hidden bg-navy-dark">
         <ShaderBackground />
         <div className="absolute inset-0 bg-gradient-to-b from-navy/80 via-navy/50 to-navy/80" />
 
