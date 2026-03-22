@@ -48,7 +48,7 @@ export default function SponsorsPage() {
             {p.ctas.become}
           </a>
           <a
-            href="/Sponsorluk&TanıtımDosyası Bogazici Racing.pdf"
+            href="/Sponsorship package Bogazici.pdf"
             download
             className="w-full sm:w-auto px-8 py-3 border border-white/30 text-white text-xs font-bold tracking-widest uppercase hover:border-gold hover:text-gold transition-all duration-300 text-center"
           >
