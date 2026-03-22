@@ -43,11 +43,11 @@ export default function Car({ fullPage = false }) {
   }, []);
 
   return (
-    <section className={`relative w-full overflow-hidden min-h-[60vh]${fullPage ? ' md:min-h-screen' : ''}`}>
+    <section className={`relative w-full overflow-hidden min-h-[50vh] md:min-h-[60vh]${fullPage ? ' md:min-h-screen' : ''}`}>
       {/* Background video — plays once, holds last frame */}
       <video
         ref={videoRef}
-        className="absolute inset-0 w-full h-full object-cover"
+        className="absolute inset-0 w-full h-full object-contain md:object-cover"
         muted
         playsInline
       >
@@ -57,7 +57,7 @@ export default function Car({ fullPage = false }) {
       <div className="absolute inset-0 bg-navy/80" />
 
       {/* Content */}
-      <div className="relative z-10 py-20 md:py-40 px-6 text-center flex flex-col items-center justify-center min-h-[60vh]">
+      <div className="relative z-10 py-20 md:py-40 px-6 text-center flex flex-col items-center justify-center min-h-[50vh] md:min-h-[60vh]">
         <p className="text-gold text-xs font-bold tracking-widest2 uppercase mb-6">{c.eyebrow}</p>
 
         <h2 className="text-white text-4xl md:text-5xl font-bold leading-tight mb-6">{c.title}</h2>
