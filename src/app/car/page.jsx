@@ -12,7 +12,7 @@ export default function CarPage() {
       <Car fullPage />
 
       <section
-        className="py-24 md:py-32 px-6 bg-white"
+        className="py-16 md:py-32 px-6 bg-white"
         style={{ backgroundImage: 'radial-gradient(rgba(13,27,42,0.045) 1px, transparent 1px)', backgroundSize: '24px 24px' }}
       >
         <div className="max-w-3xl mx-auto text-center">

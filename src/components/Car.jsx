@@ -43,7 +43,7 @@ export default function Car({ fullPage = false }) {
   }, []);
 
   return (
-    <section className={`relative w-full overflow-hidden min-h-[50vh] md:min-h-[60vh]${fullPage ? ' md:min-h-screen' : ''}`}>
+    <section className={`relative w-full overflow-hidden min-h-[85vh] md:min-h-[60vh]${fullPage ? ' md:min-h-screen' : ''}`}>
       {/* Background video — plays once, holds last frame */}
       <video
         ref={videoRef}
@@ -57,10 +57,10 @@ export default function Car({ fullPage = false }) {
       <div className="absolute inset-0 bg-navy/80" />
 
       {/* Content */}
-      <div className="relative z-10 py-20 md:py-40 px-6 text-center flex flex-col items-center justify-center min-h-[50vh] md:min-h-[60vh]">
-        <p className="text-gold text-xs font-bold tracking-widest2 uppercase mb-6">{c.eyebrow}</p>
+      <div className="relative z-10 py-16 md:py-40 px-6 text-center flex flex-col items-center justify-center min-h-[85vh] md:min-h-[60vh]">
+        <p className="text-gold text-xs font-bold tracking-widest2 uppercase mb-8 md:mb-6">{c.eyebrow}</p>
 
-        <h2 className="text-white text-4xl md:text-5xl font-bold leading-tight mb-6">{c.title}</h2>
+        <h2 className="text-white text-4xl md:text-5xl font-bold leading-tight mb-8 md:mb-6">{c.title}</h2>
 
         {/* Badge */}
         <div className="inline-flex items-center gap-2 border border-gold/40 px-4 py-1.5 mb-10">
@@ -70,7 +70,7 @@ export default function Car({ fullPage = false }) {
 
         <div className="w-10 h-px bg-gold/40 mx-auto mb-10" />
 
-        <p className="text-white/60 text-base md:text-lg leading-relaxed max-w-2xl mx-auto mb-14">
+        <p className="text-white/60 text-base md:text-lg leading-relaxed max-w-2xl mx-auto mb-10 md:mb-14">
           {c.body}
         </p>
 
