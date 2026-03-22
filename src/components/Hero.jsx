@@ -1,5 +1,6 @@
 'use client'
 
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { useLanguage } from '../context/LanguageContext'
 import ShaderBackground from './ShaderBackground'
@@ -7,10 +8,18 @@ import ShaderBackground from './ShaderBackground'
 export default function Hero() {
   const { t } = useLanguage()
   const h = t.hero
+  const [heroHeight, setHeroHeight] = useState(null)
+
+  useEffect(() => {
+    setHeroHeight(window.innerHeight)
+  }, [])
 
   return (
     <>
-      <section className="relative h-screen w-full overflow-hidden bg-navy-dark">
+      <section
+        className="relative w-full overflow-hidden bg-navy-dark"
+        style={{ height: heroHeight ? `${heroHeight}px` : '100vh' }}
+      >
         <ShaderBackground />
         <div className="absolute inset-0 bg-gradient-to-b from-navy/80 via-navy/50 to-navy/80" />
 
