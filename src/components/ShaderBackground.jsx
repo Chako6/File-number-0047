@@ -359,8 +359,13 @@ export default function ShaderBackground() {
 
     const ctx2d = car.getContext('2d');
     let trackScale = 1.0;
+    let lastWidth  = window.innerWidth;
 
     const resize = () => {
+      // Ignore height-only changes (mobile address bar show/hide).
+      if (window.innerWidth === lastWidth) return;
+      lastWidth = window.innerWidth;
+
       const w = window.innerWidth, h = window.innerHeight;
       track.width  = w * dpr;
       track.height = h * dpr;
@@ -371,7 +376,14 @@ export default function ShaderBackground() {
       renderer.resize();
     };
 
-    resize();
+    // Initial size set unconditionally (not via resize handler).
+    const w0 = window.innerWidth, h0 = window.innerHeight;
+    track.width  = w0 * dpr;
+    track.height = h0 * dpr;
+    car.width    = w0 * dpr;
+    car.height   = h0 * dpr;
+    trackScale   = track.width >= track.height ? 1.0 : 0.70;
+    renderer.resize();
 
     // Start / stop the render loop based on canvas visibility.
     let raf = null;
