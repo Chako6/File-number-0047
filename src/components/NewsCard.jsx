@@ -1,7 +1,6 @@
 'use client'
 
 import Link from 'next/link'
-import Image from 'next/image'
 import { useLanguage } from '../context/LanguageContext'
 
 const formatDate = (dateStr, lang) => {
@@ -30,13 +29,13 @@ export default function NewsCard({ post, href }) {
       className="flex flex-col border border-gray-100 bg-white overflow-hidden transition-all duration-300 hover:border-gold/40 hover:shadow-[0_4px_24px_rgba(201,168,76,0.08)] group"
     >
       {imageSrc ? (
-        <div className="relative h-48 overflow-hidden flex-shrink-0">
-          <Image
+        <div className="h-48 overflow-hidden flex-shrink-0">
+          <img
             src={imageSrc}
             alt={post.title}
-            fill
-            sizes="(max-width: 768px) 100vw, 33vw"
-            className="object-cover group-hover:scale-[1.03] transition-transform duration-500"
+            loading="lazy"
+            decoding="async"
+            className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500"
           />
         </div>
       ) : (

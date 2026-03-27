@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import Image from 'next/image'
 import { usePathname, useRouter } from 'next/navigation'
 import { useLanguage } from '../context/LanguageContext'
 
@@ -56,12 +55,12 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-6 lg:px-10 h-16 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="flex items-center gap-3.5 group">
-          <Image
+          <img
             src="/images/logo.jpg"
             alt="BU Racing"
             width={40}
             height={40}
-            priority
+            decoding="async"
             className="object-cover rounded-sm ring-1 ring-white/10 group-hover:ring-gold/40 transition-all duration-300"
           />
           <span className="w-px h-5 bg-white/15" />

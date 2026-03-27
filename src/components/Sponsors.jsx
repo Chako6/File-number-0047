@@ -2,16 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import Image from 'next/image'
 import { useLanguage } from '../context/LanguageContext'
-
-function SponsorImage({ src, alt }) {
-  const [error, setError] = useState(false)
-  if (error) return <span className="text-navy font-bold text-sm text-center">{alt}</span>
-  return (
-    <Image src={src} alt={alt} fill className="object-contain p-2" onError={() => setError(true)} />
-  )
-}
 
 const staticSponsors = [
   { name: 'BİAS Mühendislik', logo: '/images/sponsor-bias.jpg', url: '#' },
@@ -57,8 +48,19 @@ export default function Sponsors() {
               rel="noopener noreferrer"
               className="flex flex-col items-center gap-3 hover:scale-[1.03] transition-transform duration-300"
             >
-              <div className="bg-white ring-1 ring-gray-200 rounded-sm w-48 h-24 relative flex items-center justify-center px-5">
-                <SponsorImage src={sponsor.logo} alt={sponsor.name} />
+              <div className="bg-white ring-1 ring-gray-200 rounded-sm w-48 h-24 flex items-center justify-center px-5">
+                <img
+                  src={sponsor.logo}
+                  alt={sponsor.name}
+                  loading="lazy"
+                  decoding="async"
+                  className="w-full h-full object-contain"
+                  onError={(e) => {
+                    e.currentTarget.style.display = 'none'
+                    e.currentTarget.nextSibling.style.display = 'block'
+                  }}
+                />
+                <span className="hidden text-navy font-bold text-sm text-center">{sponsor.name}</span>
               </div>
               <span className="text-gray-500 text-[11px] font-medium tracking-wider text-center w-48 leading-snug uppercase mt-1">
                 {sponsor.name}
