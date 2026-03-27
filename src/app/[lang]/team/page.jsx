@@ -2,7 +2,7 @@
 
 import { useRef, useEffect, useState, useMemo } from 'react'
 import Link from 'next/link'
-import { useLanguage } from '../../context/LanguageContext'
+import { useLanguage } from '../../../context/LanguageContext'
 import {
   SEASONS,
   CURRENT_SEASON,
@@ -10,7 +10,7 @@ import {
   rosterBySeason,
   DEPT_ORDER,
   DEPT_LABELS,
-} from '../../data/team'
+} from '../../../data/team'
 
 // ── Department icons ─────────────────────────────────────────────────────────
 const deptIcons = {
@@ -443,7 +443,7 @@ export default function Team() {
         <div className="w-10 h-px bg-gold mx-auto mb-8" />
         <p className="text-white/65 text-base md:text-lg leading-relaxed max-w-xl mx-auto mb-10">{p.joinBody}</p>
         <Link
-          href="/contact"
+          href={`/${lang}/contact`}
           className="inline-block px-8 py-3 border border-gold text-gold text-xs font-bold tracking-widest uppercase hover:bg-gold hover:text-navy transition-all duration-300"
         >
           {p.joinCta}

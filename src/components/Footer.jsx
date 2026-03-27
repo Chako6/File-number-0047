@@ -35,13 +35,15 @@ const socialLinks = [
 ]
 
 export default function Footer() {
-  const { t } = useLanguage()
+  const { t, lang } = useLanguage()
   const f = t.footer
   const nav = t.nav
   const pathname = usePathname()
 
+  const l = (path) => (path === '/' ? `/${lang}` : `/${lang}${path}`)
+
   const handleHomeClick = (e) => {
-    if (pathname === '/') {
+    if (pathname === `/${lang}` || pathname === `/${lang}/`) {
       e.preventDefault()
       window.scrollTo({ top: 0, behavior: 'smooth' })
     }
@@ -53,7 +55,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-14">
           {/* Brand */}
           <div>
-            <Link href="/" className="flex items-center gap-3 mb-6">
+            <Link href={l('/')} className="flex items-center gap-3 mb-6">
               <img src="/images/logo.jpg" alt="BU Racing" className="h-12 w-12 object-cover" />
               <div>
                 <p className="text-white font-bold text-sm tracking-wide">Boğaziçi Racing</p>
@@ -83,12 +85,12 @@ export default function Footer() {
             <h3 className="text-gold text-xs font-bold tracking-widest uppercase mb-6">{f.quickLinks}</h3>
             <ul className="space-y-3">
               {[
-                { label: nav.home, to: '/', onClick: handleHomeClick },
-                { label: nav.team, to: '/team' },
-                { label: nav.car, to: '/car' },
-                { label: nav.news, to: '/news' },
-                { label: nav.sponsors, to: '/sponsors' },
-                { label: nav.contact, to: '/contact' },
+                { label: nav.home, to: l('/'), onClick: handleHomeClick },
+                { label: nav.team, to: l('/team') },
+                { label: nav.car, to: l('/car') },
+                { label: nav.news, to: l('/news') },
+                { label: nav.sponsors, to: l('/sponsors') },
+                { label: nav.contact, to: l('/contact') },
               ].map((link) => (
                 <li key={link.to}>
                   <Link

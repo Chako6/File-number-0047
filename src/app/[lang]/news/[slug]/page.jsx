@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { useParams, useRouter } from 'next/navigation'
-import { useLanguage } from '../../../context/LanguageContext'
+import { useLanguage } from '../../../../context/LanguageContext'
 
 const formatDate = (dateStr, lang) => {
   const d = new Date(dateStr + 'T00:00:00')
@@ -22,7 +22,7 @@ function extractBlocks(blocks) {
 
 const BackLink = () => (
   <Link
-    href="/news"
+    href={`/${lang}/news`}
     className="inline-flex items-center gap-2 text-[10px] font-bold tracking-widest uppercase transition-colors duration-200 text-white/35 hover:text-gold"
   >
     <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
@@ -50,11 +50,11 @@ export default function NewsDetail() {
         if (data) {
           setPost(data)
         } else {
-          router.replace('/news')
+          router.replace(`/${lang}/news`)
         }
         setLoading(false)
       })
-      .catch(() => { router.replace('/news') })
+      .catch(() => { router.replace(`/${lang}/news`) })
   }, [slug, router])
 
   // Full-height skeleton — keeps viewport filled so scroll position stays at 0
@@ -115,7 +115,7 @@ export default function NewsDetail() {
           ))}
         </div>
         <div className="mt-16 pt-8 border-t border-gray-100">
-          <Link href="/news" className="inline-flex items-center gap-2 text-navy/40 hover:text-gold text-[10px] font-bold tracking-widest uppercase transition-colors duration-200">
+          <Link href={`/${lang}/news`} className="inline-flex items-center gap-2 text-navy/40 hover:text-gold text-[10px] font-bold tracking-widest uppercase transition-colors duration-200">
             <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
             </svg>

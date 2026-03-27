@@ -1,7 +1,7 @@
 'use client'
 
-import Car from '../../components/Car'
-import { useLanguage } from '../../context/LanguageContext'
+import Car from '../../../components/Car'
+import { useLanguage } from '../../../context/LanguageContext'
 
 export default function CarPage() {
   const { t } = useLanguage()

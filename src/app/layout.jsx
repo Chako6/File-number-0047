@@ -1,5 +1,4 @@
 import Script from 'next/script'
-import Providers from './Providers'
 import '../index.css'
 
 const GA_ID = 'G-7KVELH67VC'
@@ -47,7 +46,7 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body>
-        <Providers>{children}</Providers>
+        {children}
         <Script
           src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
           strategy="afterInteractive"

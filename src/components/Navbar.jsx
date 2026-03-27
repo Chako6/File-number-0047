@@ -6,13 +6,14 @@ import { usePathname, useRouter } from 'next/navigation'
 import { useLanguage } from '../context/LanguageContext'
 
 export default function Navbar() {
-  const { lang, toggle, t } = useLanguage()
+  const { lang, t } = useLanguage()
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const pathname = usePathname()
   const router = useRouter()
 
-  const isHome = pathname === '/'
+  const l = (path) => (path === '/' ? `/${lang}` : `/${lang}${path}`)
+  const isHome = pathname === `/${lang}` || pathname === `/${lang}/`
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 80)
@@ -25,7 +26,7 @@ export default function Navbar() {
 
   const handleNavLink = (path) => (e) => {
     setMenuOpen(false)
-    if (pathname === path) {
+    if (pathname === l(path)) {
       e.preventDefault()
       window.scrollTo({ top: 0, behavior: 'smooth' })
     }
@@ -33,12 +34,18 @@ export default function Navbar() {
 
   const scrollToSection = (id) => {
     setMenuOpen(false)
-    if (pathname !== '/') {
-      router.push('/')
+    if (!isHome) {
+      router.push(l('/'))
       setTimeout(() => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' }), 300)
     } else {
       document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
     }
+  }
+
+  const switchLang = () => {
+    const other = lang === 'en' ? 'tr' : 'en'
+    const rest = pathname.slice(`/${lang}`.length)
+    router.push(`/${other}${rest}`)
   }
 
   const linkClass =
@@ -54,7 +61,7 @@ export default function Navbar() {
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-10 h-16 flex items-center justify-between">
         {/* Logo */}
-        <Link href="/" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="flex items-center gap-3.5 group">
+        <Link href={l('/')} onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="flex items-center gap-3.5 group">
           <img
             src="/images/logo.jpg"
             alt="BU Racing"
@@ -68,15 +75,15 @@ export default function Navbar() {
 
         {/* Desktop nav */}
         <div className="hidden md:flex items-center gap-7">
-          <Link href="/" onClick={handleNavLink('/')} className={linkClass}>{t.nav.home}</Link>
-          <Link href="/team" onClick={handleNavLink('/team')} className={linkClass}>{t.nav.team}</Link>
-          <Link href="/car" onClick={handleNavLink('/car')} className={linkClass}>{t.nav.car}</Link>
-          <Link href="/news" onClick={handleNavLink('/news')} className={linkClass}>{t.nav.news}</Link>
-          <Link href="/sponsors" onClick={handleNavLink('/sponsors')} className={linkClass}>{t.nav.sponsors}</Link>
-          <Link href="/contact" onClick={handleNavLink('/contact')} className={linkClass}>{t.nav.contact}</Link>
+          <Link href={l('/')} onClick={handleNavLink('/')} className={linkClass}>{t.nav.home}</Link>
+          <Link href={l('/team')} onClick={handleNavLink('/team')} className={linkClass}>{t.nav.team}</Link>
+          <Link href={l('/car')} onClick={handleNavLink('/car')} className={linkClass}>{t.nav.car}</Link>
+          <Link href={l('/news')} onClick={handleNavLink('/news')} className={linkClass}>{t.nav.news}</Link>
+          <Link href={l('/sponsors')} onClick={handleNavLink('/sponsors')} className={linkClass}>{t.nav.sponsors}</Link>
+          <Link href={l('/contact')} onClick={handleNavLink('/contact')} className={linkClass}>{t.nav.contact}</Link>
 
           <button
-            onClick={toggle}
+            onClick={switchLang}
             className="flex items-center gap-1 text-xs font-bold tracking-widest border border-white/20 hover:border-gold/60 transition-all duration-200 px-3 py-1.5"
             aria-label="Toggle language"
           >
@@ -86,7 +93,7 @@ export default function Navbar() {
           </button>
 
           <Link
-            href="/contact"
+            href={l('/contact')}
             onClick={handleNavLink('/contact')}
             className="px-5 py-2 border border-gold text-gold text-xs font-bold tracking-widest uppercase hover:bg-gold hover:text-navy transition-all duration-300"
           >
@@ -97,7 +104,7 @@ export default function Navbar() {
         {/* Mobile right controls */}
         <div className="md:hidden flex items-center gap-3">
           <button
-            onClick={toggle}
+            onClick={switchLang}
             className="flex items-center gap-1 text-xs font-bold border border-white/20 px-2.5 py-1"
           >
             <span className={lang === 'en' ? 'text-gold' : 'text-white/40'}>EN</span>
@@ -123,26 +130,26 @@ export default function Navbar() {
         }`}
       >
         <div className="px-6 py-6 flex flex-col gap-5">
-          <Link href="/" onClick={handleNavLink('/')} className={`${linkClass} text-left`}>
+          <Link href={l('/')} onClick={handleNavLink('/')} className={`${linkClass} text-left`}>
             {t.nav.home}
           </Link>
-          <Link href="/team" onClick={handleNavLink('/team')} className={linkClass}>
+          <Link href={l('/team')} onClick={handleNavLink('/team')} className={linkClass}>
             {t.nav.team}
           </Link>
-          <Link href="/car" onClick={handleNavLink('/car')} className={linkClass}>
+          <Link href={l('/car')} onClick={handleNavLink('/car')} className={linkClass}>
             {t.nav.car}
           </Link>
-          <Link href="/news" onClick={handleNavLink('/news')} className={linkClass}>
+          <Link href={l('/news')} onClick={handleNavLink('/news')} className={linkClass}>
             {t.nav.news}
           </Link>
-          <Link href="/sponsors" onClick={handleNavLink('/sponsors')} className={linkClass}>
+          <Link href={l('/sponsors')} onClick={handleNavLink('/sponsors')} className={linkClass}>
             {t.nav.sponsors}
           </Link>
-          <Link href="/contact" onClick={handleNavLink('/contact')} className={linkClass}>
+          <Link href={l('/contact')} onClick={handleNavLink('/contact')} className={linkClass}>
             {t.nav.contact}
           </Link>
           <Link
-            href="/contact"
+            href={l('/contact')}
             onClick={handleNavLink('/contact')}
             className="mt-2 px-5 py-3 border border-gold text-gold text-xs font-bold tracking-widest uppercase text-center hover:bg-gold hover:text-navy transition-all duration-300"
           >

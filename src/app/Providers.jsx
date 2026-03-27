@@ -6,9 +6,9 @@ import Footer from '../components/Footer'
 import ScrollToTop from '../components/ScrollToTop'
 import LangSync from '../components/LangSync'
 
-export default function Providers({ children }) {
+export default function Providers({ lang, children }) {
   return (
-    <LanguageProvider>
+    <LanguageProvider lang={lang}>
       <LangSync />
       <ScrollToTop />
       <Navbar />

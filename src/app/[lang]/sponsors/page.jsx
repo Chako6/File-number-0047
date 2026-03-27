@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { useLanguage } from '../../context/LanguageContext'
+import { useLanguage } from '../../../context/LanguageContext'
 
 const staticSponsors = [
   { name: 'BİAS Mühendislik', logo: '/images/sponsor-bias.jpg', url: '#' },

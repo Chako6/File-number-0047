@@ -5,8 +5,9 @@ import { useLanguage } from '../context/LanguageContext'
 import ShaderBackground from './ShaderBackground'
 
 export default function Hero() {
-  const { t } = useLanguage()
+  const { t, lang } = useLanguage()
   const h = t.hero
+  const l = (path) => `/${lang}${path}`
 
   return (
     <>
@@ -30,13 +31,13 @@ export default function Hero() {
           <div className="hidden md:block w-12 h-px bg-gold mb-10 opacity-50" />
           <div className="hidden md:flex flex-col sm:flex-row items-center gap-3">
             <Link
-              href="/contact"
+              href={l('/contact')}
               className="px-10 py-3 bg-gold text-navy text-xs font-bold tracking-widest uppercase hover:bg-gold-light transition-all duration-300 hover:shadow-[0_0_30px_rgba(201,168,76,0.35)]"
             >
               {h.cta1}
             </Link>
             <Link
-              href="/car"
+              href={l('/car')}
               className="px-10 py-3 border border-white/20 text-white/65 text-xs font-bold tracking-widest uppercase hover:border-gold/50 hover:text-gold transition-all duration-300"
             >
               {h.cta2}
@@ -57,13 +58,13 @@ export default function Hero() {
       {/* Mobile only — CTA buttons below the hero */}
       <div className="md:hidden bg-navy border-t border-white/10 py-8 px-6 flex flex-col items-center gap-3">
         <Link
-          href="/contact"
+          href={l('/contact')}
           className="w-full max-w-xs text-center px-10 py-3 bg-gold text-navy text-xs font-bold tracking-widest uppercase hover:bg-gold-light transition-all duration-300"
         >
           {h.cta1}
         </Link>
         <Link
-          href="/car"
+          href={l('/car')}
           className="w-full max-w-xs text-center px-10 py-3 border border-white/20 text-white/65 text-xs font-bold tracking-widest uppercase hover:border-gold/50 hover:text-gold transition-all duration-300"
         >
           {h.cta2}

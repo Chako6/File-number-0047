@@ -1,23 +1,19 @@
 'use client'
 
-import { createContext, useContext, useState } from 'react'
-import { translations } from '../i18n/translations';
+import { createContext, useContext } from 'react'
+import { translations } from '../i18n/translations'
 
-const LanguageContext = createContext(null);
+const LanguageContext = createContext(null)
 
-export function LanguageProvider({ children }) {
-  const [lang, setLang] = useState('en');
-
-  const t = translations[lang];
-  const toggle = () => setLang((prev) => (prev === 'en' ? 'tr' : 'en'));
-
+export function LanguageProvider({ lang = 'en', children }) {
+  const t = translations[lang]
   return (
-    <LanguageContext.Provider value={{ lang, toggle, t }}>
+    <LanguageContext.Provider value={{ lang, t }}>
       {children}
     </LanguageContext.Provider>
-  );
+  )
 }
 
 export function useLanguage() {
-  return useContext(LanguageContext);
+  return useContext(LanguageContext)
 }

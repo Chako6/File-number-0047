@@ -22,6 +22,7 @@ function SkeletonCard() {
 export default function LatestNews() {
   const { t, lang } = useLanguage()
   const n = t.latestNews
+  const l = (path) => `/${lang}${path}`
   const [posts, setPosts] = useState(null)
 
   useEffect(() => {
@@ -60,7 +61,7 @@ export default function LatestNews() {
           </div>
 
           <Link
-            href="/news"
+            href={l('/news')}
             className="self-start md:self-auto inline-block px-8 py-3 border border-gold/40 text-gold text-xs font-bold tracking-widest uppercase hover:bg-gold hover:text-navy transition-all duration-300"
           >
             {n.viewAll}
@@ -71,7 +72,7 @@ export default function LatestNews() {
           {posts === null
             ? Array.from({ length: 3 }).map((_, i) => <SkeletonCard key={i} />)
             : posts.map((post) => (
-                <NewsCard key={post.id} post={post} href={`/news/${post.slug}`} />
+                <NewsCard key={post.id} post={post} href={l(`/news/${post.slug}`)} />
               ))
           }
         </div>

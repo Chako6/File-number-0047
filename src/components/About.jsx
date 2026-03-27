@@ -22,8 +22,9 @@ const icons = {
 };
 
 export default function About() {
-  const { t } = useLanguage();
+  const { t, lang } = useLanguage();
   const a = t.about;
+  const l = (path) => `/${lang}${path}`
 
   return (
     <section id="about" className="bg-white">
@@ -103,7 +104,7 @@ export default function About() {
           {/* CTA */}
           <div className="text-center mt-12">
             <a
-              href="/team"
+              href={l('/team')}
               className="inline-block px-8 py-3 border border-gold/40 text-gold text-xs font-bold tracking-widest uppercase hover:bg-gold hover:text-navy hover:border-gold transition-all duration-300"
             >
               {a.cta}

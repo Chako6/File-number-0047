@@ -1,9 +1,9 @@
 'use client'
 
 import { useState, useEffect, useMemo } from 'react'
-import { useLanguage } from '../../context/LanguageContext'
-import NewsCard from '../../components/NewsCard'
-import { NEWS_CATEGORIES } from '../../data/news'
+import { useLanguage } from '../../../context/LanguageContext'
+import NewsCard from '../../../components/NewsCard'
+import { NEWS_CATEGORIES } from '../../../data/news'
 
 function normalizePost(post, lang) {
   return {
@@ -98,7 +98,7 @@ export default function News() {
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {filteredPosts.map((post) => (
-                  <NewsCard key={post.id} post={post} href={`/news/${post.slug}`} />
+                  <NewsCard key={post.id} post={post} href={`/${lang}/news/${post.slug}`} />
                 ))}
               </div>
             </>
