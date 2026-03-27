@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { useLanguage } from '../context/LanguageContext'
 
@@ -54,7 +55,7 @@ export default function Footer() {
           {/* Brand */}
           <div>
             <Link href="/" className="flex items-center gap-3 mb-6">
-              <img src="/images/logo.jpg" alt="BU Racing" className="h-12 w-12 object-cover" />
+              <Image src="/images/logo.jpg" alt="BU Racing" width={48} height={48} className="object-cover" />
               <div>
                 <p className="text-white font-bold text-sm tracking-wide">Boğaziçi Racing</p>
                 <p className="text-white/55 text-xs tracking-wide">Formula Student Team</p>

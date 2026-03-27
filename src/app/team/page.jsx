@@ -2,6 +2,7 @@
 
 import { useRef, useEffect, useState, useMemo } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { useLanguage } from '../../context/LanguageContext'
 import {
   SEASONS,
@@ -268,11 +269,15 @@ export default function Team() {
       {/* Hero banner */}
       <div className="relative bg-navy md:overflow-hidden md:min-h-screen">
         <div className="relative overflow-hidden md:absolute md:inset-0">
-          <img
+          <Image
             ref={imgRef}
             src="/images/Team%20Foto%20Bogazici%20Racing.png"
             alt=""
             aria-hidden="true"
+            width={1920}
+            height={1080}
+            priority
+            sizes="100vw"
             className="w-full h-auto md:h-full md:w-full md:object-cover md:object-center will-change-transform"
             style={{ objectPosition: 'center 30%' }}
           />

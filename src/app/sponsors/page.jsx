@@ -1,7 +1,16 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import Image from 'next/image'
 import { useLanguage } from '../../context/LanguageContext'
+
+function SponsorImage({ src, alt }) {
+  const [error, setError] = useState(false)
+  if (error) return <span className="text-navy font-bold text-sm text-center">{alt}</span>
+  return (
+    <Image src={src} alt={alt} fill className="object-contain p-2" onError={() => setError(true)} />
+  )
+}
 
 const staticSponsors = [
   { name: 'BİAS Mühendislik', logo: '/images/sponsor-bias.jpg', url: '#' },
@@ -97,17 +106,8 @@ export default function SponsorsPage() {
                 rel="noopener noreferrer"
                 className="flex flex-col items-center gap-3 hover:scale-[1.03] transition-transform duration-300"
               >
-                <div className="bg-white rounded-sm w-52 h-28 flex items-center justify-center px-6">
-                  <img
-                    src={sponsor.logo}
-                    alt={sponsor.name}
-                    className="w-full h-full object-contain"
-                    onError={(e) => {
-                      e.currentTarget.style.display = 'none'
-                      e.currentTarget.nextSibling.style.display = 'block'
-                    }}
-                  />
-                  <span className="hidden text-navy font-bold text-sm text-center">{sponsor.name}</span>
+                <div className="bg-white rounded-sm w-52 h-28 relative flex items-center justify-center px-6">
+                  <SponsorImage src={sponsor.logo} alt={sponsor.name} />
                 </div>
                 <span className="text-white/60 text-[11px] font-medium tracking-wider text-center w-52 leading-snug uppercase">
                   {sponsor.name}

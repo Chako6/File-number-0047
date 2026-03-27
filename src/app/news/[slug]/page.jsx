@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { useParams, useRouter } from 'next/navigation'
 import { useLanguage } from '../../../context/LanguageContext'
 
@@ -104,7 +105,7 @@ export default function NewsDetail() {
 
       {postImage && (
         <div className="max-w-4xl mx-auto px-6 pt-10 pb-2">
-          <img src={postImage} alt={postTitle} className="w-full h-auto block" />
+          <Image src={postImage} alt={postTitle} width={1200} height={675} sizes="(max-width: 1024px) 100vw, 896px" className="w-full h-auto block" />
         </div>
       )}
 
