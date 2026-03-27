@@ -58,10 +58,7 @@ export default function Navbar() {
           <img
             src="/images/logo.jpg"
             alt="BU Racing"
-            width={40}
-            height={40}
-            decoding="async"
-            className="object-cover rounded-sm ring-1 ring-white/10 group-hover:ring-gold/40 transition-all duration-300"
+            className="h-10 w-10 object-cover rounded-sm ring-1 ring-white/10 group-hover:ring-gold/40 transition-all duration-300"
           />
           <span className="w-px h-5 bg-white/15" />
           <span className="text-white font-bold text-[11px] sm:text-sm tracking-wider sm:tracking-widest group-hover:text-gold transition-colors duration-200">

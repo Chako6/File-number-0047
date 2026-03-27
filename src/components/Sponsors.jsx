@@ -52,8 +52,6 @@ export default function Sponsors() {
                 <img
                   src={sponsor.logo}
                   alt={sponsor.name}
-                  loading="lazy"
-                  decoding="async"
                   className="w-full h-full object-contain"
                   onError={(e) => {
                     e.currentTarget.style.display = 'none'

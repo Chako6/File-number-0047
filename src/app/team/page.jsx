@@ -273,7 +273,6 @@ export default function Team() {
             src="/images/Team%20Foto%20Bogazici%20Racing.png"
             alt=""
             aria-hidden="true"
-            decoding="async"
             className="w-full h-auto md:h-full md:w-full md:object-cover md:object-center will-change-transform"
             style={{ objectPosition: 'center 30%' }}
           />

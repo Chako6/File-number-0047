@@ -104,7 +104,7 @@ export default function NewsDetail() {
 
       {postImage && (
         <div className="max-w-4xl mx-auto px-6 pt-10 pb-2">
-          <img src={postImage} alt={postTitle} loading="lazy" decoding="async" className="w-full h-auto block" />
+          <img src={postImage} alt={postTitle} className="w-full h-auto block" />
         </div>
       )}
 

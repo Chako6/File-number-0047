@@ -33,8 +33,6 @@ export default function NewsCard({ post, href }) {
           <img
             src={imageSrc}
             alt={post.title}
-            loading="lazy"
-            decoding="async"
             className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500"
           />
         </div>
