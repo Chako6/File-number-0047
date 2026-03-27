@@ -2,7 +2,7 @@ import Script from 'next/script'
 import '../index.css'
 
 const GA_ID = 'G-7KVELH67VC'
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://bogaziciracing.vercel.app'
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://bogaziciracing.com'
 
 export const metadata = {
   metadataBase: new URL(SITE_URL),

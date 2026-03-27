@@ -1,6 +1,6 @@
 import { createClient } from '@sanity/client'
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://bogaziciracing.vercel.app'
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://bogaziciracing.com'
 const LOCALES = ['en', 'tr']
 
 const staticPages = [

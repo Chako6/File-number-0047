@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation'
 import Providers from '../Providers'
 
 const LOCALES = ['en', 'tr']
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://bogaziciracing.vercel.app'
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://bogaziciracing.com'
 
 export function generateStaticParams() {
   return LOCALES.map((lang) => ({ lang }))
