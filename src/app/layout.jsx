@@ -37,8 +37,6 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <head>
         <meta name="color-scheme" content="light" />
-        <link rel="icon" type="image/jpeg" href="/images/logo.jpg" />
-        <link rel="apple-touch-icon" href="/images/logo.jpg" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
