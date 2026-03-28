@@ -38,6 +38,7 @@ export default function RootLayout({ children }) {
       <head>
         <meta name="color-scheme" content="light" />
         <link rel="icon" type="image/jpeg" href="/images/logo.jpg" />
+        <link rel="apple-touch-icon" href="/images/logo.jpg" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
@@ -46,6 +47,23 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'Organization',
+              name: 'Boğaziçi Racing',
+              url: SITE_URL,
+              logo: `${SITE_URL}/images/logo.jpg`,
+              sameAs: [
+                'https://www.instagram.com/bogaziciracing/',
+                'https://www.youtube.com/@Bo%C4%9Fazi%C3%A7iRacing',
+                'https://www.linkedin.com/company/buracing/',
+              ],
+            }),
+          }}
+        />
         {children}
         <Script
           src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
