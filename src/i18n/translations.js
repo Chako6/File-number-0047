@@ -374,7 +374,7 @@ export const translations = {
       eyebrow: 'İLETİŞİM',
       title: 'Bize Ulaşın',
       intro:
-        'Bizimle iletişime geçmekten mutluluk duyarız. Takıma katılmak, sponsor olmak ya da Boğaziçi Racing hakkında daha fazla bilgi almak ister misiniz?',
+        'Bizimle iletişime geçmenizden mutluluk duyarız. Takıma katılmak, sponsor olmak ya da Boğaziçi Racing hakkında daha fazla bilgi almak ister misiniz?',
       cards: [
         {
           id: 'enquiries',
