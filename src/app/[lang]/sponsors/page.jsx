@@ -39,7 +39,7 @@ export default function SponsorsPage() {
       </div>
 
       {/* CTA buttons */}
-      <div className="bg-navy-dark border-t border-white/10 py-10 px-6">
+      <div className="bg-navy border-t border-white/10 py-10 px-6">
         <div className="max-w-3xl mx-auto flex flex-col sm:flex-row justify-center items-center gap-4">
           <a
             href="mailto:info.buracing@gmail.com"

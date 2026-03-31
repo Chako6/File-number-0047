@@ -291,7 +291,7 @@ export default function Team() {
       </div>
 
       {/* Stats bar */}
-      <div className="bg-navy-dark py-10 px-6">
+      <div className="bg-navy py-10 px-6">
         <div className="max-w-4xl mx-auto grid grid-cols-3 divide-x divide-white/10">
           {[
             { value: '2025', label: p.statFounded },

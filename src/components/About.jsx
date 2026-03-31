@@ -71,7 +71,7 @@ export default function About() {
       </div>
 
       {/* ── Value cards — dark engineering section ── */}
-      <div className="bg-navy-dark px-6 py-16 md:py-20">
+      <div className="bg-navy px-6 py-16 md:py-20">
         <div className="max-w-5xl mx-auto">
           {/* Section label */}
           <div className="flex items-center gap-4 mb-10">
@@ -83,7 +83,7 @@ export default function About() {
             {a.values.map((v, i) => (
               <div
                 key={v.title}
-                className="group bg-navy-dark hover:bg-navy-light px-8 py-8 transition-all duration-300"
+                className="group bg-navy hover:bg-navy-light px-8 py-8 transition-all duration-300"
               >
                 {/* Index */}
                 <p className="font-mono text-[10px] text-gold/25 tracking-widest mb-5">[ 0{i + 1} ]</p>

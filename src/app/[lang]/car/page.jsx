@@ -8,7 +8,7 @@ export default function CarPage() {
   const s = t.carStory
 
   return (
-    <div className="pt-16 bg-navy-dark min-h-screen">
+    <div className="pt-16 bg-navy min-h-screen">
       <Car fullPage />
 
       <section

@@ -44,7 +44,7 @@ export default function Car({ fullPage = false }) {
       {/* ── MOBILE LAYOUT (hidden on md+) ─────────────────────────────────── */}
       <div className="md:hidden">
         {/* Video at natural 16:9 aspect ratio — eyebrow + title overlaid */}
-        <div className="relative w-full aspect-video overflow-hidden bg-navy-dark">
+        <div className="relative w-full aspect-video overflow-hidden bg-navy">
           <video
             ref={videoRef}
             className="absolute inset-0 w-full h-full object-cover"
