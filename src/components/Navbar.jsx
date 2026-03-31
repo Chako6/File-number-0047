@@ -48,8 +48,13 @@ export default function Navbar() {
     router.push(`/${other}${rest}`)
   }
 
-  const linkClass =
-    'text-white/75 hover:text-gold transition-colors duration-200 text-xs font-semibold tracking-widest uppercase'
+  const isActive = (path) => {
+    if (path === '/') return pathname === `/${lang}` || pathname === `/${lang}/`
+    return pathname === l(path) || pathname.startsWith(l(path) + '/')
+  }
+
+  const linkClass = (path) =>
+    `${isActive(path) ? 'text-gold' : 'text-white/75'} hover:text-gold transition-colors duration-200 text-xs font-semibold tracking-widest uppercase`
 
   return (
     <nav
@@ -59,7 +64,7 @@ export default function Navbar() {
           : 'bg-transparent'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-6 lg:px-10 h-16 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-8 lg:px-14 h-16 flex items-center justify-between">
         {/* Logo */}
         <Link href={l('/')} onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="flex items-center gap-3.5 group">
           <img
@@ -75,12 +80,12 @@ export default function Navbar() {
 
         {/* Desktop nav */}
         <div className="hidden md:flex items-center gap-7">
-          <Link href={l('/')} onClick={handleNavLink('/')} className={linkClass}>{t.nav.home}</Link>
-          <Link href={l('/team')} onClick={handleNavLink('/team')} className={linkClass}>{t.nav.team}</Link>
-          <Link href={l('/car')} onClick={handleNavLink('/car')} className={linkClass}>{t.nav.car}</Link>
-          <Link href={l('/news')} onClick={handleNavLink('/news')} className={linkClass}>{t.nav.news}</Link>
-          <Link href={l('/sponsors')} onClick={handleNavLink('/sponsors')} className={linkClass}>{t.nav.sponsors}</Link>
-          <Link href={l('/contact')} onClick={handleNavLink('/contact')} className={linkClass}>{t.nav.contact}</Link>
+          <Link href={l('/')} onClick={handleNavLink('/')} className={linkClass('/')}>{t.nav.home}</Link>
+          <Link href={l('/team')} onClick={handleNavLink('/team')} className={linkClass('/team')}>{t.nav.team}</Link>
+          <Link href={l('/car')} onClick={handleNavLink('/car')} className={linkClass('/car')}>{t.nav.car}</Link>
+          <Link href={l('/news')} onClick={handleNavLink('/news')} className={linkClass('/news')}>{t.nav.news}</Link>
+          <Link href={l('/sponsors')} onClick={handleNavLink('/sponsors')} className={linkClass('/sponsors')}>{t.nav.sponsors}</Link>
+          <Link href={l('/contact')} onClick={handleNavLink('/contact')} className={linkClass('/contact')}>{t.nav.contact}</Link>
 
           <button
             onClick={switchLang}
@@ -130,22 +135,22 @@ export default function Navbar() {
         }`}
       >
         <div className="px-6 py-6 flex flex-col gap-5">
-          <Link href={l('/')} onClick={handleNavLink('/')} className={`${linkClass} text-left`}>
+          <Link href={l('/')} onClick={handleNavLink('/')} className={`${linkClass('/')} text-left`}>
             {t.nav.home}
           </Link>
-          <Link href={l('/team')} onClick={handleNavLink('/team')} className={linkClass}>
+          <Link href={l('/team')} onClick={handleNavLink('/team')} className={linkClass('/team')}>
             {t.nav.team}
           </Link>
-          <Link href={l('/car')} onClick={handleNavLink('/car')} className={linkClass}>
+          <Link href={l('/car')} onClick={handleNavLink('/car')} className={linkClass('/car')}>
             {t.nav.car}
           </Link>
-          <Link href={l('/news')} onClick={handleNavLink('/news')} className={linkClass}>
+          <Link href={l('/news')} onClick={handleNavLink('/news')} className={linkClass('/news')}>
             {t.nav.news}
           </Link>
-          <Link href={l('/sponsors')} onClick={handleNavLink('/sponsors')} className={linkClass}>
+          <Link href={l('/sponsors')} onClick={handleNavLink('/sponsors')} className={linkClass('/sponsors')}>
             {t.nav.sponsors}
           </Link>
-          <Link href={l('/contact')} onClick={handleNavLink('/contact')} className={linkClass}>
+          <Link href={l('/contact')} onClick={handleNavLink('/contact')} className={linkClass('/contact')}>
             {t.nav.contact}
           </Link>
           <Link

@@ -54,8 +54,8 @@ export default function Footer() {
       <div className="max-w-6xl mx-auto px-6 lg:px-10 pt-16 pb-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-14">
           {/* Brand */}
-          <div>
-            <Link href={l('/')} className="flex items-center gap-3 mb-6">
+          <div className="text-center md:text-left">
+            <Link href={l('/')} className="flex items-center justify-center md:justify-start gap-3 mb-6">
               <img src="/images/logo.jpg" alt="BU Racing" className="h-12 w-12 object-cover" />
               <div>
                 <p className="text-white font-bold text-sm tracking-wide">Boğaziçi Racing</p>
@@ -64,7 +64,7 @@ export default function Footer() {
             </Link>
             <p className="text-white/55 text-sm leading-relaxed mb-2">{f.tagline}</p>
             <p className="text-white/25 text-xs mb-6">{f.founded}</p>
-            <div className="flex gap-3">
+            <div className="flex justify-center md:justify-start gap-3">
               {socialLinks.map((s) => (
                 <a
                   key={s.label}
@@ -81,7 +81,7 @@ export default function Footer() {
           </div>
 
           {/* Quick links */}
-          <div>
+          <div className="text-center md:text-left">
             <h3 className="text-gold text-xs font-bold tracking-widest uppercase mb-6">{f.quickLinks}</h3>
             <ul className="space-y-3">
               {[
@@ -96,7 +96,7 @@ export default function Footer() {
                   <Link
                     href={link.to}
                     onClick={link.onClick}
-                    className="text-white/55 hover:text-gold transition-colors duration-200 text-sm flex items-center gap-2 group"
+                    className="text-white/55 hover:text-gold transition-colors duration-200 text-sm flex items-center justify-center md:justify-start gap-2 group"
                   >
                     <span className="w-3 h-px bg-white/20 group-hover:bg-gold group-hover:w-5 transition-all duration-200" />
                     {link.label}
@@ -107,7 +107,7 @@ export default function Footer() {
           </div>
 
           {/* Contact */}
-          <div>
+          <div className="text-center md:text-left">
             <h3 className="text-gold text-xs font-bold tracking-widest uppercase mb-6">{f.contact}</h3>
             <ul className="space-y-1 text-sm text-white/55 leading-relaxed">
               {f.address.map((line) => (
@@ -118,8 +118,8 @@ export default function Footer() {
         </div>
 
         <div className="border-t border-white/10 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-white/25 text-xs tracking-wider">{f.copyright}</p>
-          <p className="text-white/25 text-xs tracking-wider">{f.rights}</p>
+          <p className="text-white/25 text-xs tracking-wider text-center sm:text-left">{f.copyright}</p>
+          <p className="text-white/25 text-xs tracking-wider text-center sm:text-right">{f.rights}</p>
         </div>
       </div>
     </footer>
