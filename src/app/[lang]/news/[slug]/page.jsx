@@ -31,9 +31,13 @@ export default function NewsDetail() {
   useEffect(() => { window.scrollTo(0, 0) }, [])
 
   useEffect(() => {
+    if (!slug) return
     setLoading(true)
     fetch(`/api/news/${encodeURIComponent(slug)}`)
-      .then((r) => r.json())
+      .then((r) => {
+        if (!r.ok) throw new Error(`API returned ${r.status}`)
+        return r.json()
+      })
       .then((data) => {
         if (data) {
           setPost(data)
@@ -42,8 +46,12 @@ export default function NewsDetail() {
         }
         setLoading(false)
       })
-      .catch(() => { router.replace(`/${lang}/news`) })
-  }, [slug, router])
+      .catch((err) => {
+        console.error('News detail fetch failed:', err)
+        setLoading(false)
+        router.replace(`/${lang}/news`)
+      })
+  }, [slug, lang, router])
 
   // Full-height skeleton — keeps viewport filled so scroll position stays at 0
   if (loading) {
