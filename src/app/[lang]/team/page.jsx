@@ -178,7 +178,7 @@ function MemberCard({ member }) {
         </div>
       )}
 
-      <div className="absolute inset-0 bg-gradient-to-t from-navy/88 via-navy/35 to-transparent
+      <div className="absolute inset-0 bg-gradient-to-t from-navy via-navy/70 to-navy/10
                       opacity-0 group-hover:opacity-100
                       [@media(hover:none)]:opacity-100
                       transition-opacity duration-300" />
@@ -189,9 +189,9 @@ function MemberCard({ member }) {
                       group-hover:opacity-100 group-hover:translate-y-0
                       [@media(hover:none)]:opacity-100 [@media(hover:none)]:translate-y-0
                       transition-[opacity,transform] duration-300">
-        <div className="flex-1 min-w-0 pr-3">
+        <div className="flex-1 min-w-0 pr-3" style={{ textShadow: '0 1px 4px rgba(0,0,0,0.7)' }}>
           <p className="text-white text-sm font-bold leading-snug">{member.name}</p>
-          <p className="text-white/70 text-[11px] leading-snug mt-0.5">{member.role}</p>
+          <p className="text-white/85 text-[11px] leading-snug mt-0.5">{member.role}</p>
         </div>
         <a
           href={member.linkedin || 'https://linkedin.com'}
