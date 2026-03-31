@@ -178,10 +178,10 @@ function MemberCard({ member }) {
         </div>
       )}
 
-      <div className="absolute inset-0 bg-gradient-to-t from-navy via-navy/70 to-navy/10
-                      opacity-0 group-hover:opacity-100
-                      [@media(hover:none)]:opacity-100
-                      transition-opacity duration-300" />
+      <div
+        className="absolute inset-0 opacity-0 group-hover:opacity-100 [@media(hover:none)]:opacity-100 transition-opacity duration-300"
+        style={{ background: 'linear-gradient(to top, rgba(13,27,42,0.92) 0%, rgba(13,27,42,0.55) 38%, rgba(13,27,42,0) 68%)' }}
+      />
 
       <div className="absolute bottom-0 left-0 right-0 px-4 pb-4
                       flex items-end justify-between
