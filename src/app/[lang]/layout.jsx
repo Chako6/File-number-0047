@@ -12,6 +12,7 @@ export function generateMetadata({ params }) {
   const { lang } = params
   return {
     alternates: {
+      canonical: `${SITE_URL}/${lang}`,
       languages: {
         en: `${SITE_URL}/en`,
         tr: `${SITE_URL}/tr`,
