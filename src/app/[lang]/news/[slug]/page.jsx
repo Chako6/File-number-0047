@@ -20,18 +20,6 @@ function extractBlocks(blocks) {
     .filter(Boolean)
 }
 
-const BackLink = () => (
-  <Link
-    href={`/${lang}/news`}
-    className="inline-flex items-center gap-2 text-[10px] font-bold tracking-widest uppercase transition-colors duration-200 text-white/35 hover:text-gold"
-  >
-    <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-      <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
-    </svg>
-    Back to News
-  </Link>
-)
-
 export default function NewsDetail() {
   const { slug } = useParams()
   const router = useRouter()
@@ -88,7 +76,17 @@ export default function NewsDetail() {
     <div className="pt-16 bg-white min-h-screen">
       <div className="bg-navy py-16 md:py-20 px-6">
         <div className="max-w-3xl mx-auto">
-          <div className="mb-10"><BackLink /></div>
+          <div className="mb-10">
+            <Link
+              href={`/${lang}/news`}
+              className="inline-flex items-center gap-2 text-[10px] font-bold tracking-widest uppercase transition-colors duration-200 text-white/35 hover:text-gold"
+            >
+              <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+              </svg>
+              {lang === 'tr' ? 'Haberlere Dön' : 'Back to News'}
+            </Link>
+          </div>
 
           <div className="flex items-center gap-3 mb-5">
             <span className="text-gold text-[10px] font-bold tracking-widest uppercase">{categoryLabel}</span>
@@ -119,7 +117,7 @@ export default function NewsDetail() {
             <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
             </svg>
-            Back to News
+            {lang === 'tr' ? 'Haberlere Dön' : 'Back to News'}
           </Link>
         </div>
       </div>
