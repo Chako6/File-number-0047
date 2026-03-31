@@ -64,7 +64,7 @@ export default function Navbar() {
           : 'bg-transparent'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-8 lg:px-14 h-16 flex items-center justify-between">
+      <div className="px-8 lg:px-16 h-16 flex items-center justify-between">
         {/* Logo */}
         <Link href={l('/')} onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="flex items-center gap-3.5 group">
           <img
