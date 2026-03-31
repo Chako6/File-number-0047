@@ -53,8 +53,11 @@ export default function Navbar() {
     return pathname === l(path) || pathname.startsWith(l(path) + '/')
   }
 
+  // Use JS-based uppercasing so Turkish i→İ is handled correctly (CSS uppercase ignores locale)
+  const up = (s) => s.toLocaleUpperCase(lang === 'tr' ? 'tr-TR' : 'en-US')
+
   const linkClass = (path) =>
-    `${isActive(path) ? 'text-gold' : 'text-white/75'} hover:text-gold transition-colors duration-200 text-xs font-semibold tracking-widest uppercase`
+    `${isActive(path) ? 'text-gold' : 'text-white/75'} hover:text-gold transition-colors duration-200 text-xs font-semibold tracking-widest`
 
   return (
     <nav
@@ -80,12 +83,12 @@ export default function Navbar() {
 
         {/* Desktop nav */}
         <div className="hidden md:flex items-center gap-7">
-          <Link href={l('/')} onClick={handleNavLink('/')} className={linkClass('/')}>{t.nav.home}</Link>
-          <Link href={l('/team')} onClick={handleNavLink('/team')} className={linkClass('/team')}>{t.nav.team}</Link>
-          <Link href={l('/car')} onClick={handleNavLink('/car')} className={linkClass('/car')}>{t.nav.car}</Link>
-          <Link href={l('/news')} onClick={handleNavLink('/news')} className={linkClass('/news')}>{t.nav.news}</Link>
-          <Link href={l('/sponsors')} onClick={handleNavLink('/sponsors')} className={linkClass('/sponsors')}>{t.nav.sponsors}</Link>
-          <Link href={l('/contact')} onClick={handleNavLink('/contact')} className={linkClass('/contact')}>{t.nav.contact}</Link>
+          <Link href={l('/')} onClick={handleNavLink('/')} className={linkClass('/')}>{up(t.nav.home)}</Link>
+          <Link href={l('/team')} onClick={handleNavLink('/team')} className={linkClass('/team')}>{up(t.nav.team)}</Link>
+          <Link href={l('/car')} onClick={handleNavLink('/car')} className={linkClass('/car')}>{up(t.nav.car)}</Link>
+          <Link href={l('/news')} onClick={handleNavLink('/news')} className={linkClass('/news')}>{up(t.nav.news)}</Link>
+          <Link href={l('/sponsors')} onClick={handleNavLink('/sponsors')} className={linkClass('/sponsors')}>{up(t.nav.sponsors)}</Link>
+          <Link href={l('/contact')} onClick={handleNavLink('/contact')} className={linkClass('/contact')}>{up(t.nav.contact)}</Link>
 
           <button
             onClick={switchLang}
@@ -100,9 +103,9 @@ export default function Navbar() {
           <Link
             href={l('/contact')}
             onClick={handleNavLink('/contact')}
-            className="px-5 py-2 border border-gold text-gold text-xs font-bold tracking-widest uppercase hover:bg-gold hover:text-navy transition-all duration-300"
+            className="px-5 py-2 border border-gold text-gold text-xs font-bold tracking-widest hover:bg-gold hover:text-navy transition-all duration-300"
           >
-            {t.nav.joinUs}
+            {up(t.nav.joinUs)}
           </Link>
         </div>
 
@@ -136,29 +139,29 @@ export default function Navbar() {
       >
         <div className="px-6 py-6 flex flex-col gap-5">
           <Link href={l('/')} onClick={handleNavLink('/')} className={`${linkClass('/')} text-left`}>
-            {t.nav.home}
+            {up(t.nav.home)}
           </Link>
           <Link href={l('/team')} onClick={handleNavLink('/team')} className={linkClass('/team')}>
-            {t.nav.team}
+            {up(t.nav.team)}
           </Link>
           <Link href={l('/car')} onClick={handleNavLink('/car')} className={linkClass('/car')}>
-            {t.nav.car}
+            {up(t.nav.car)}
           </Link>
           <Link href={l('/news')} onClick={handleNavLink('/news')} className={linkClass('/news')}>
-            {t.nav.news}
+            {up(t.nav.news)}
           </Link>
           <Link href={l('/sponsors')} onClick={handleNavLink('/sponsors')} className={linkClass('/sponsors')}>
-            {t.nav.sponsors}
+            {up(t.nav.sponsors)}
           </Link>
           <Link href={l('/contact')} onClick={handleNavLink('/contact')} className={linkClass('/contact')}>
-            {t.nav.contact}
+            {up(t.nav.contact)}
           </Link>
           <Link
             href={l('/contact')}
             onClick={handleNavLink('/contact')}
-            className="mt-2 px-5 py-3 border border-gold text-gold text-xs font-bold tracking-widest uppercase text-center hover:bg-gold hover:text-navy transition-all duration-300"
+            className="mt-2 px-5 py-3 border border-gold text-gold text-xs font-bold tracking-widest text-center hover:bg-gold hover:text-navy transition-all duration-300"
           >
-            {t.nav.joinUs}
+            {up(t.nav.joinUs)}
           </Link>
         </div>
       </div>

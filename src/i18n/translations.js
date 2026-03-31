@@ -235,11 +235,11 @@ export const translations = {
     nav: {
       home: 'Ana Sayfa',
       about: 'Hakkımızda',
-      team: 'EKİP',
+      team: 'Ekip',
       car: 'Araç',
       news: 'Haberler',
       sponsors: 'Sponsorlar',
-      contact: 'İLETİŞİM',
+      contact: 'İletişim',
       joinUs: 'Katıl',
     },
     hero: {
