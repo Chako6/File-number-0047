@@ -10,6 +10,7 @@ const staticPages = [
   { path: '/news',    priority: 0.9, changeFrequency: 'weekly'  },
   { path: '/sponsors',priority: 0.7, changeFrequency: 'monthly' },
   { path: '/contact', priority: 0.6, changeFrequency: 'yearly'  },
+  { path: '/privacy', priority: 0.3, changeFrequency: 'yearly'  },
 ]
 
 const staticRoutes = LOCALES.flatMap((lang) =>

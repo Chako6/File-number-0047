@@ -1,7 +1,5 @@
-import Script from 'next/script'
 import '../index.css'
 
-const GA_ID = 'G-7KVELH67VC'
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://bogaziciracing.com'
 
 export const metadata = {
@@ -66,18 +64,6 @@ export default function RootLayout({ children }) {
           }}
         />
         {children}
-        <Script
-          src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
-          strategy="afterInteractive"
-        />
-        <Script id="ga-init" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', '${GA_ID}');
-          `}
-        </Script>
       </body>
     </html>
   )

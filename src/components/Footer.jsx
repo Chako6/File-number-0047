@@ -119,7 +119,13 @@ export default function Footer() {
 
         <div className="border-t border-white/10 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-white/25 text-xs tracking-wider text-center sm:text-left">{f.copyright}</p>
-          <p className="text-white/25 text-xs tracking-wider text-center sm:text-right">{f.rights}</p>
+          <div className="flex items-center gap-4 text-center sm:text-right">
+            <Link href={l('/privacy')} className="text-white/25 text-xs tracking-wider hover:text-gold/60 transition-colors">
+              {f.privacy}
+            </Link>
+            <span className="text-white/15">·</span>
+            <p className="text-white/25 text-xs tracking-wider">{f.rights}</p>
+          </div>
         </div>
       </div>
     </footer>

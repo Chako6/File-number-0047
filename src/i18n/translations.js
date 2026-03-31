@@ -91,6 +91,7 @@ export const translations = {
       ],
       copyright: '© 2026 Boğaziçi Racing. All rights reserved.',
       rights: 'Formula Student Team of Boğaziçi University',
+      privacy: 'Privacy Policy',
     },
     teamPage: {
       eyebrow: 'The Team',
@@ -183,7 +184,29 @@ export const translations = {
         sending: 'Sending…',
         success: 'Thank you! Your message has been sent.',
         error: 'Something went wrong. Please try again or email us directly.',
+        consentLabel: 'I have read and understood the',
+        consentLinkText: 'Privacy Policy',
       },
+    },
+    cookieBanner: {
+      title: 'Cookie Settings',
+      body: 'We use cookies to improve your experience and to understand how the site is used. You can choose which categories to accept. For more details, see our',
+      policyLinkText: 'Privacy Policy',
+      essential: {
+        label: 'Essential',
+        desc: 'Required for the site to function. Always active.',
+      },
+      analytics: {
+        label: 'Analytics',
+        desc: 'Helps us understand how visitors use the site (Google Analytics).',
+      },
+      marketing: {
+        label: 'Marketing',
+        desc: 'Used for advertising and retargeting. Currently not in use.',
+      },
+      acceptAll: 'Accept All',
+      acceptSelected: 'Save Preferences',
+      rejectAll: 'Essential Only',
     },
     newsPage: {
       eyebrow: 'Team Updates',
@@ -300,6 +323,7 @@ export const translations = {
       ],
       copyright: '© 2026 Boğaziçi Racing. Tüm hakları saklıdır.',
       rights: 'Boğaziçi Üniversitesi Formula Student Takımı',
+      privacy: 'Gizlilik ve KVKK',
     },
     teamPage: {
       eyebrow: 'EKİP',
@@ -392,7 +416,29 @@ export const translations = {
         sending: 'Gönderiliyor…',
         success: 'Teşekkürler! Mesajınız iletildi.',
         error: 'Bir hata oluştu. Lütfen tekrar deneyin veya doğrudan e-posta gönderin.',
+        consentLabel: 'Aydınlatma Metnini okudum ve anladım',
+        consentLinkText: 'Aydınlatma Metni',
       },
+    },
+    cookieBanner: {
+      title: 'Çerez Ayarları',
+      body: 'Deneyiminizi iyileştirmek ve sitenin nasıl kullanıldığını anlamak için çerezler kullanıyoruz. Kabul etmek istediğiniz kategorileri seçebilirsiniz. Daha fazla bilgi için',
+      policyLinkText: 'Aydınlatma Metni',
+      essential: {
+        label: 'Zorunlu',
+        desc: 'Sitenin çalışması için gereklidir. Her zaman aktiftir.',
+      },
+      analytics: {
+        label: 'Analitik',
+        desc: 'Ziyaretçilerin siteyi nasıl kullandığını anlamamıza yardımcı olur (Google Analytics).',
+      },
+      marketing: {
+        label: 'Pazarlama',
+        desc: 'Reklam ve yeniden hedefleme için kullanılır. Şu an aktif değildir.',
+      },
+      acceptAll: 'Tümünü Kabul Et',
+      acceptSelected: 'Tercihleri Kaydet',
+      rejectAll: 'Yalnızca Zorunlu',
     },
     newsPage: {
       eyebrow: 'EKİP GÜNCELLEMELERİ',

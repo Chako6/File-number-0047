@@ -53,14 +53,16 @@ const socialLinks = [
 ]
 
 export default function Contact() {
-  const { t } = useLanguage()
+  const { t, lang } = useLanguage()
   const p = t.contactPage
   const f = p.form
   const [formState, setFormState] = useState({ name: '', email: '', message: '', type: 'general' })
+  const [consent, setConsent] = useState(false)
   const [status, setStatus] = useState('idle') // idle | sending | success | error
 
   async function handleSubmit(e) {
     e.preventDefault()
+    if (!consent) return
     setStatus('sending')
     try {
       const res = await fetch('/api/contact', {
@@ -182,13 +184,35 @@ export default function Contact() {
                 />
               </div>
 
+              {/* Consent checkbox */}
+              <label className="flex items-start gap-3 cursor-pointer group">
+                <input
+                  type="checkbox"
+                  required
+                  checked={consent}
+                  onChange={(e) => setConsent(e.target.checked)}
+                  className="mt-0.5 w-4 h-4 accent-navy shrink-0"
+                />
+                <span className="text-gray-600 text-sm leading-relaxed">
+                  {f.consentLabel}{' '}
+                  <a
+                    href={`/${lang}/privacy`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-navy underline underline-offset-2 hover:text-gold transition-colors"
+                  >
+                    {f.consentLinkText}
+                  </a>
+                </span>
+              </label>
+
               {status === 'error' && (
                 <p className="text-red-600 text-sm">{f.error}</p>
               )}
 
               <button
                 type="submit"
-                disabled={status === 'sending'}
+                disabled={status === 'sending' || !consent}
                 className="px-8 py-3 bg-navy text-white text-xs font-bold tracking-widest uppercase hover:bg-navy/80 transition-colors duration-300 disabled:opacity-60"
               >
                 {status === 'sending' ? f.sending : f.submit}
