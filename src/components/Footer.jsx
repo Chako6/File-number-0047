@@ -81,7 +81,7 @@ export default function Footer() {
           </div>
 
           {/* Quick links */}
-          <div className="text-center md:text-left">
+          <div className="flex flex-col items-center md:items-start">
             <h3 className="text-gold text-xs font-bold tracking-widest uppercase mb-6">{f.quickLinks}</h3>
             <ul className="space-y-3">
               {[
@@ -96,7 +96,7 @@ export default function Footer() {
                   <Link
                     href={link.to}
                     onClick={link.onClick}
-                    className="text-white/55 hover:text-gold transition-colors duration-200 text-sm flex items-center justify-center md:justify-start gap-2 group"
+                    className="text-white/55 hover:text-gold transition-colors duration-200 text-sm flex items-center gap-2 group"
                   >
                     <span className="w-3 h-px bg-white/20 group-hover:bg-gold group-hover:w-5 transition-all duration-200" />
                     {link.label}
