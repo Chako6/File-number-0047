@@ -50,7 +50,9 @@ export default function Footer() {
   }
 
   return (
-    <footer className="bg-navy text-white border-t border-gold">
+    <footer className="bg-navy text-white">
+      <div className="py-2 bg-navy" />
+      <div className="h-0.5 bg-gold" />
       <div className="max-w-6xl mx-auto px-6 lg:px-10 pt-16 pb-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-14">
           {/* Brand */}
