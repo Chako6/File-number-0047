@@ -1,11 +1,48 @@
-'use client'
-
-import { useEffect, useState } from 'react'
 import Link from 'next/link'
-import { useParams, useRouter } from 'next/navigation'
-import { useLanguage } from '../../../../context/LanguageContext'
+import { notFound } from 'next/navigation'
+import { createClient } from '@sanity/client'
+import { createImageUrlBuilder } from '@sanity/image-url'
+import { translations } from '../../../../i18n/translations'
 
-const formatDate = (dateStr, lang) => {
+async function getPost(slug) {
+  if (!process.env.NEXT_PUBLIC_SANITY_PROJECT_ID) return null
+  try {
+    const client = createClient({
+      projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
+      dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || 'production',
+      useCdn: false,
+      apiVersion: '2025-03-21',
+      perspective: 'published',
+    })
+    const builder = createImageUrlBuilder(client)
+    const p = await client.fetch(
+      `*[_type == "news" && slug.current == $slug][0] {
+        "slug": slug.current, category, date, image,
+        title_en, title_tr, description_en, description_tr,
+        body_en, body_tr
+      }`,
+      { slug }
+    )
+    if (!p) return null
+    return {
+      slug: p.slug,
+      category: p.category,
+      date: p.date,
+      image: p.image ? builder.image(p.image).url() : null,
+      title_en: p.title_en || '',
+      title_tr: p.title_tr || p.title_en || '',
+      description_en: p.description_en || '',
+      description_tr: p.description_tr || p.description_en || '',
+      body_en: p.body_en || [],
+      body_tr: p.body_tr || p.body_en || [],
+    }
+  } catch (err) {
+    console.error('News detail SSR fetch failed:', err)
+    return null
+  }
+}
+
+function formatDate(dateStr, lang) {
   const d = new Date(dateStr + 'T00:00:00')
   return d.toLocaleDateString(lang === 'tr' ? 'tr-TR' : 'en-GB', {
     day: 'numeric', month: 'long', year: 'numeric',
@@ -20,60 +57,13 @@ function extractBlocks(blocks) {
     .filter(Boolean)
 }
 
-export default function NewsDetail() {
-  const { slug } = useParams()
-  const router = useRouter()
-  const { lang, t } = useLanguage()
+export default async function NewsDetail({ params }) {
+  const { lang, slug } = params
+  const post = await getPost(slug)
 
-  const [post, setPost] = useState(null)
-  const [loading, setLoading] = useState(true)
+  if (!post) notFound()
 
-  useEffect(() => { window.scrollTo(0, 0) }, [])
-
-  useEffect(() => {
-    if (!slug) return
-    setLoading(true)
-    fetch(`/api/news/${encodeURIComponent(slug)}`)
-      .then((r) => {
-        if (!r.ok) throw new Error(`API returned ${r.status}`)
-        return r.json()
-      })
-      .then((data) => {
-        if (data) {
-          setPost(data)
-        } else {
-          router.replace(`/${lang}/news`)
-        }
-        setLoading(false)
-      })
-      .catch((err) => {
-        console.error('News detail fetch failed:', err)
-        setLoading(false)
-        router.replace(`/${lang}/news`)
-      })
-  }, [slug, lang, router])
-
-  // Full-height skeleton — keeps viewport filled so scroll position stays at 0
-  if (loading) {
-    return (
-      <div className="pt-16 min-h-screen bg-navy animate-pulse">
-        <div className="py-16 md:py-20 px-6">
-          <div className="max-w-3xl mx-auto">
-            <div className="h-3 w-16 bg-white/10 rounded mb-10" />
-            <div className="h-3 w-24 bg-white/10 rounded mb-5" />
-            <div className="w-8 h-px bg-gold/30 mb-8" />
-            <div className="h-8 w-4/5 bg-white/10 rounded mb-3" />
-            <div className="h-8 w-2/3 bg-white/10 rounded mb-6" />
-            <div className="h-4 w-full bg-white/10 rounded mb-2" />
-            <div className="h-4 w-5/6 bg-white/10 rounded" />
-          </div>
-        </div>
-      </div>
-    )
-  }
-
-  if (!post) return null
-
+  const t = translations[lang] || translations.en
   const categoryLabel = t.newsPage.categories[post.category]
   const postTitle = post[`title_${lang}`] || post.title_en || ''
   const postDesc  = post[`description_${lang}`] || post.description_en || ''
@@ -110,7 +100,7 @@ export default function NewsDetail() {
 
       {postImage && (
         <div className="max-w-4xl mx-auto px-6 pt-10 pb-2">
-          <img src={postImage} alt={postTitle} className="w-full h-auto block" />
+          <img src={postImage} alt={postTitle} className="w-full h-auto block" decoding="async" loading="lazy" />
         </div>
       )}
 

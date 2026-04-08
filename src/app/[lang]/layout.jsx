@@ -8,9 +8,15 @@ export function generateStaticParams() {
   return LOCALES.map((lang) => ({ lang }))
 }
 
+const descriptions = {
+  en: 'Boğaziçi Racing — Formula Student Team of Boğaziçi University. We design, build, and race a formula-style car from the ground up.',
+  tr: 'Boğaziçi Racing — Boğaziçi Üniversitesi Formula Student Takımı. Sıfırdan tasarlayıp ürettiğimiz yarış aracıyla uluslararası rekabete hazırlanıyoruz.',
+}
+
 export function generateMetadata({ params }) {
   const { lang } = params
   return {
+    description: descriptions[lang] || descriptions.en,
     alternates: {
       canonical: `${SITE_URL}/${lang}`,
       languages: {
