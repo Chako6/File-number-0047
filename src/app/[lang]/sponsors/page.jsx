@@ -88,28 +88,31 @@ export default function SponsorsPage() {
           <div className="w-10 h-px bg-gold mx-auto mb-6" />
           <p className="text-white/65 text-base mb-16">{p.partnersIntro}</p>
 
-          <div className="flex flex-wrap justify-center items-start gap-10 md:gap-14">
+          <div className="grid grid-cols-2 gap-x-4 gap-y-8
+                          sm:flex sm:flex-wrap sm:justify-center sm:items-start sm:gap-10 md:gap-14">
             {sponsors.map((sponsor) => (
               <a
                 key={sponsor.name}
                 href={sponsor.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex flex-col items-center gap-3 hover:scale-[1.03] transition-transform duration-300"
+                className="flex flex-col items-center gap-2 sm:gap-3 hover:scale-[1.03] transition-transform duration-300"
               >
-                <div className="bg-white rounded-sm w-52 h-28 flex items-center justify-center px-6">
+                <div className="bg-white rounded-sm w-full h-24 px-3 sm:w-52 sm:h-28 sm:px-6 flex items-center justify-center">
                   <img
                     src={sponsor.logo}
                     alt={sponsor.name}
                     className="w-full h-full object-contain"
+                    loading="lazy"
+                    decoding="async"
                     onError={(e) => {
                       e.currentTarget.style.display = 'none'
                       e.currentTarget.nextSibling.style.display = 'block'
                     }}
                   />
-                  <span className="hidden text-navy font-bold text-sm text-center">{sponsor.name}</span>
+                  <span className="hidden text-navy font-bold text-xs sm:text-sm text-center">{sponsor.name}</span>
                 </div>
-                <span className="text-white/60 text-[11px] font-medium tracking-wider text-center w-52 leading-snug uppercase">
+                <span className="text-white/60 text-[10px] sm:text-[11px] font-medium tracking-wider text-center w-full sm:w-52 leading-snug uppercase">
                   {sponsor.name}
                 </span>
               </a>

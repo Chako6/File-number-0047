@@ -26,6 +26,27 @@ export async function GET(req) {
 
   console.log('[api/team] projectId:', projectId, 'dataset:', dataset, 'season:', season)
 
+  // ?list=seasons → distinct seasons that actually have team members in Sanity,
+  // so the Team page can default to the newest one even when it isn't in SEASONS.
+  if (searchParams.get('list') === 'seasons') {
+    try {
+      const seasons = await client.fetch(
+        `array::unique(*[_type == "teamMember" && defined(season)].season)`,
+        {},
+        { cache: 'no-store' }
+      )
+      return new Response(JSON.stringify(Array.isArray(seasons) ? seasons : []), {
+        headers: {
+          'Content-Type': 'application/json',
+          'Cache-Control': 'no-store, no-cache, must-revalidate',
+        },
+      })
+    } catch (err) {
+      console.error('Sanity team seasons fetch failed:', err)
+      return Response.json([])
+    }
+  }
+
   try {
     const data = await client.fetch(
       `*[_type == "teamMember" && season == $season] | order(order asc) {

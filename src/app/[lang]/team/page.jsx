@@ -5,7 +5,8 @@ import Link from 'next/link'
 import { useLanguage } from '../../../context/LanguageContext'
 import {
   SEASONS,
-  CURRENT_SEASON,
+  LATEST_SEASON,
+  compareSeasons,
   MEMBER_COUNT_DISPLAY,
   rosterBySeason,
   DEPT_ORDER,
@@ -213,8 +214,29 @@ export default function Team() {
   const { t, lang } = useLanguage()
   const p = t.teamPage
   const imgRef = useRef(null)
-  const [selectedSeason, setSelectedSeason] = useState(CURRENT_SEASON)
+  const [seasons, setSeasons] = useState(SEASONS)
+  const [selectedSeason, setSelectedSeason] = useState(LATEST_SEASON)
   const [rawSanityBySeason, setRawSanityBySeason] = useState({})
+  const seasonPickedByUser = useRef(false)
+
+  // Sanity may carry seasons that aren't declared in SEASONS yet — merge them in
+  // and keep the newest one selected unless the visitor has already chosen one.
+  useEffect(() => {
+    fetch('/api/team?list=seasons')
+      .then((r) => r.json())
+      .then((data) => {
+        if (!Array.isArray(data) || !data.length) return
+        const merged = [...new Set([...SEASONS, ...data])].sort(compareSeasons)
+        setSeasons(merged)
+        if (!seasonPickedByUser.current) setSelectedSeason(merged.at(-1))
+      })
+      .catch(() => {})
+  }, [])
+
+  const selectSeason = (s) => {
+    seasonPickedByUser.current = true
+    setSelectedSeason(s)
+  }
 
   useEffect(() => {
     fetch(`/api/team?season=${encodeURIComponent(selectedSeason)}`)
@@ -354,12 +376,12 @@ export default function Team() {
             <div className="w-10 h-px bg-gold mt-5" />
           </div>
 
-          {SEASONS.length > 1 && (
+          {seasons.length > 1 && (
             <div className="mb-14 inline-flex border border-navy/12 overflow-hidden">
-              {SEASONS.map((s) => (
+              {seasons.map((s) => (
                 <button
                   key={s}
-                  onClick={() => setSelectedSeason(s)}
+                  onClick={() => selectSeason(s)}
                   className={`px-6 py-2.5 text-xs font-bold tracking-widest uppercase transition-colors duration-200 ${
                     selectedSeason === s
                       ? 'bg-navy text-white'

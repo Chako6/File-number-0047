@@ -39,28 +39,32 @@ export default function Sponsors() {
           </p>
         </div>
 
-        <div className="flex flex-wrap justify-center items-start gap-10 md:gap-14 mb-16">
+        <div className="grid grid-cols-2 gap-x-4 gap-y-8
+                        sm:flex sm:flex-wrap sm:justify-center sm:items-start sm:gap-10 md:gap-14
+                        mb-16">
           {sponsors.map((sponsor) => (
             <a
               key={sponsor.name}
               href={sponsor.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex flex-col items-center gap-3 hover:scale-[1.03] transition-transform duration-300"
+              className="flex flex-col items-center gap-2 sm:gap-3 hover:scale-[1.03] transition-transform duration-300"
             >
-              <div className="bg-white ring-1 ring-gray-200 rounded-sm w-48 h-24 flex items-center justify-center px-5">
+              <div className="bg-white ring-1 ring-gray-200 rounded-sm w-full h-20 px-3 sm:w-48 sm:h-24 sm:px-5 flex items-center justify-center">
                 <img
                   src={sponsor.logo}
                   alt={sponsor.name}
                   className="w-full h-full object-contain"
+                  loading="lazy"
+                  decoding="async"
                   onError={(e) => {
                     e.currentTarget.style.display = 'none'
                     e.currentTarget.nextSibling.style.display = 'block'
                   }}
                 />
-                <span className="hidden text-navy font-bold text-sm text-center">{sponsor.name}</span>
+                <span className="hidden text-navy font-bold text-xs sm:text-sm text-center">{sponsor.name}</span>
               </div>
-              <span className="text-gray-500 text-[11px] font-medium tracking-wider text-center w-48 leading-snug uppercase mt-1">
+              <span className="text-gray-500 text-[10px] sm:text-[11px] font-medium tracking-wider text-center w-full sm:w-48 leading-snug uppercase sm:mt-1">
                 {sponsor.name}
               </span>
             </a>

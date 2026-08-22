@@ -4,7 +4,9 @@
 // SEASONS              : seasons with active rosters.
 //                        When length > 1, the Team page should show a selector.
 //                        When length === 1, no selector is rendered.
-// CURRENT_SEASON       : default selected season on page load.
+//                        Append new seasons here — the newest one automatically
+//                        becomes the default selection on the Team page.
+// LATEST_SEASON        : default selected season on page load (newest in SEASONS).
 // MEMBER_COUNT_DISPLAY : shown in the stats bar — update manually when needed.
 //
 // rosterBySeason       : member list keyed by season string.
@@ -20,7 +22,19 @@
 // ─────────────────────────────────────────────────────────────────────────────
 
 export const SEASONS = ['2025/26', '2026/27']; // add '2027/28' etc. here when the season is ready
-export const CURRENT_SEASON = '2025/26';
+
+// Orders season strings like '2025/26' chronologically (oldest → newest).
+// Falls back to a plain string compare for anything that isn't year-prefixed.
+export const compareSeasons = (a, b) => {
+  const yearA = parseInt(a, 10);
+  const yearB = parseInt(b, 10);
+  if (Number.isNaN(yearA) || Number.isNaN(yearB)) return String(a).localeCompare(String(b));
+  return yearA - yearB || String(a).localeCompare(String(b));
+};
+
+// Newest declared season — the Team page's default selection.
+export const LATEST_SEASON = [...SEASONS].sort(compareSeasons).at(-1);
+
 export const MEMBER_COUNT_DISPLAY = '17+';
 
 export const rosterBySeason = {
