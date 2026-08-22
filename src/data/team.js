@@ -1,12 +1,16 @@
 // ─────────────────────────────────────────────────────────────────────────────
 // Team roster — edit this file to keep the Team page current.
 //
-// SEASONS              : seasons with active rosters.
-//                        When length > 1, the Team page should show a selector.
+// SEASONS              : seasons the Team page offers in its selector.
+//                        When length > 1, the Team page shows a selector.
 //                        When length === 1, no selector is rendered.
-//                        Append new seasons here — the newest one automatically
-//                        becomes the default selection on the Team page.
-// LATEST_SEASON        : default selected season on page load (newest in SEASONS).
+//                        Append upcoming seasons here — they appear as a tab
+//                        straight away, but only become the default once they
+//                        actually have members.
+// LATEST_SEASON        : newest season in SEASONS.
+// DEFAULT_SEASON       : season selected on page load — the newest one with a
+//                        roster, falling back to LATEST_SEASON when none has
+//                        members yet. Sanity can override this at runtime.
 // MEMBER_COUNT_DISPLAY : shown in the stats bar — update manually when needed.
 //
 // rosterBySeason       : member list keyed by season string.
@@ -32,8 +36,12 @@ export const compareSeasons = (a, b) => {
   return yearA - yearB || String(a).localeCompare(String(b));
 };
 
-// Newest declared season — the Team page's default selection.
+// Newest declared season, regardless of whether it has a roster yet.
 export const LATEST_SEASON = [...SEASONS].sort(compareSeasons).at(-1);
+
+// Picks the newest season that has at least one member, or null if none does.
+export const latestSeasonWithMembers = (seasonList, hasMembers) =>
+  [...seasonList].sort(compareSeasons).filter(hasMembers).at(-1) ?? null;
 
 export const MEMBER_COUNT_DISPLAY = '17+';
 
@@ -70,6 +78,11 @@ export const rosterBySeason = {
     // Add 2027/28 members here when the season begins.
   ],
 };
+
+// Season the Team page opens on before Sanity answers: the newest one with a
+// roster here, or the newest declared season if no roster is filled in yet.
+export const DEFAULT_SEASON =
+  latestSeasonWithMembers(SEASONS, (s) => rosterBySeason[s]?.length > 0) ?? LATEST_SEASON;
 
 // Controls the display order of department groups in the roster.
 export const DEPT_ORDER = [

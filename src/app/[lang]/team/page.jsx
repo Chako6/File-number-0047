@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { useLanguage } from '../../../context/LanguageContext'
 import {
   SEASONS,
-  LATEST_SEASON,
+  DEFAULT_SEASON,
   compareSeasons,
   MEMBER_COUNT_DISPLAY,
   rosterBySeason,
@@ -215,20 +215,24 @@ export default function Team() {
   const p = t.teamPage
   const imgRef = useRef(null)
   const [seasons, setSeasons] = useState(SEASONS)
-  const [selectedSeason, setSelectedSeason] = useState(LATEST_SEASON)
+  const [selectedSeason, setSelectedSeason] = useState(DEFAULT_SEASON)
   const [rawSanityBySeason, setRawSanityBySeason] = useState({})
   const seasonPickedByUser = useRef(false)
 
-  // Sanity may carry seasons that aren't declared in SEASONS yet — merge them in
-  // and keep the newest one selected unless the visitor has already chosen one.
+  // /api/team?list=seasons only reports seasons that actually have members, so an
+  // upcoming season still shows as a tab while the newest *staffed* one loads
+  // first. Sanity may also carry seasons not declared in SEASONS — merge those in.
   useEffect(() => {
     fetch('/api/team?list=seasons')
       .then((r) => r.json())
       .then((data) => {
-        if (!Array.isArray(data) || !data.length) return
-        const merged = [...new Set([...SEASONS, ...data])].sort(compareSeasons)
+        const staffed = Array.isArray(data) ? data.filter(Boolean) : []
+        if (!staffed.length) return
+        const merged = [...new Set([...SEASONS, ...staffed])].sort(compareSeasons)
         setSeasons(merged)
-        if (!seasonPickedByUser.current) setSelectedSeason(merged.at(-1))
+        if (!seasonPickedByUser.current) {
+          setSelectedSeason([...staffed].sort(compareSeasons).at(-1))
+        }
       })
       .catch(() => {})
   }, [])
