@@ -21,7 +21,7 @@
 // DEPT_LABELS : department heading text, keyed by language code.
 // ─────────────────────────────────────────────────────────────────────────────
 
-export const SEASONS = ['2025/26', '2026/27']; // add '2027/28' etc. here when the season is ready
+export const SEASONS = ['2025/26', '2026/27', '2027/28']; // add '2028/29' etc. here when the season is ready
 
 // Orders season strings like '2025/26' chronologically (oldest → newest).
 // Falls back to a plain string compare for anything that isn't year-prefixed.
